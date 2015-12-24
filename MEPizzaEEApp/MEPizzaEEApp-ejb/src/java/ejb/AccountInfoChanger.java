@@ -12,7 +12,7 @@ import javax.ejb.Singleton;
  * @author Emil Ejder
  */
 @Singleton
-public class ChangeAccountInfo implements ChangeAccountInfoRemote {
+public class AccountInfoChanger implements AccountInfoChangerRemote {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

@@ -12,6 +12,6 @@ import javax.ejb.Remote;
  * @author eimil_000
  */
 @Remote
-public interface LoginRemote {
+public interface LoginCheckerRemote {
     
 }
