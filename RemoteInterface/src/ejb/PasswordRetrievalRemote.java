@@ -11,5 +11,9 @@ import javax.ejb.Remote;
 public interface PasswordRetrievalRemote {
 
     String generateRandomString(Random random, String text, int length);
+
+    boolean sendMailToUser(String emailaddress, String generatedPassword);
+
+    String hashPassword(String password);
     
 }
