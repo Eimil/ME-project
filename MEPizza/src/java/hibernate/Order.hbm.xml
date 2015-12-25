@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-dec-25 21:47:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Order" table="order" catalog="mepizza" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="time" type="timestamp">
+            <column name="time" length="19" not-null="true" />
+        </property>
+        <property name="userId" type="int">
+            <column name="userId" not-null="true" />
+        </property>
+        <property name="storeId" type="int">
+            <column name="storeId" not-null="true" />
+        </property>
+        <property name="notes" type="string">
+            <column name="notes" length="65535" not-null="true" />
+        </property>
+        <property name="restaurant" type="int">
+            <column name="restaurant" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
