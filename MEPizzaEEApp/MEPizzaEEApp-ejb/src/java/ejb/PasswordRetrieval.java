@@ -37,8 +37,8 @@ public class PasswordRetrieval implements PasswordRetrievalRemote {
             Session session = Session.getDefaultInstance(props, null);
             MimeMessage message = new MimeMessage(session);
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailaddress));
-            message.setSubject("Booking confirmation");
-            String content = "Your booking was completed, add data here";
+            message.setSubject("ME-pizza new password");
+            String content = "Someone recently inquired about a new password connected to this email";
             message.setContent(content, "text/html");
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", "mepizzacontact@gmail.com", "TrialAndError13");
