@@ -10,10 +10,12 @@ import javax.ejb.Local;
 @Local
 public interface PasswordRetrievalLocal {
 
-    public String generateRandomString(Random random, String text, int length);
+    public String generateRandomString(String text, int length);
 
     public boolean sendMailToUser(String emailaddress, String generatedPassword);
 
     public String hashPassword(String password);
+
+    public boolean setNewPassword(String newPassword, String email);
 
 }

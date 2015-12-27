@@ -15,6 +15,6 @@
     <mapping resource="hibernate/Orderlog.hbm.xml"/>
     <mapping resource="hibernate/Restaurant.hbm.xml"/>
     <mapping resource="hibernate/User.hbm.xml"/>
-    <mapping resource="hibernate/Product.hbm.xml"/>
+    <mapping resource="hibernate/Product.hbm.xml"/>  
   </session-factory>
 </hibernate-configuration>

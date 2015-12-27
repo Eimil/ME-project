@@ -3,6 +3,12 @@ package logics;
 import java.security.MessageDigest;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
+import hibernate.HibernateUtil;
+import hibernate.User;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
@@ -12,12 +18,12 @@ import javax.xml.bind.DatatypeConverter;
 public class AccountCreator implements AccountCreatorLocal {
 
     @Override
-    public String hashUsername(String username) {
+    public String hashString(String userParam) {
         byte[] usernameDigested = null;
         try {
-            MessageDigest usernameMD = MessageDigest.getInstance("MD5");
-            usernameMD.update(username.getBytes("UTF-8"));
-            usernameDigested = usernameMD.digest();
+            MessageDigest paramMD=  MessageDigest.getInstance("SHA-256");
+            paramMD.update(userParam.getBytes("UTF-8"));
+            usernameDigested = paramMD.digest();
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -25,15 +31,61 @@ public class AccountCreator implements AccountCreatorLocal {
     }
 
     @Override
-    public String hashPassword(String password) {
-        byte[] passwordDigested = null;
+    public boolean createAccount(String[] accountParams) {
+        Session session = null;
         try {
-            MessageDigest usernameMD = MessageDigest.getInstance("MD5");
-            usernameMD.update(password.getBytes("UTF-8"));
-            passwordDigested = usernameMD.digest();
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            User user = new User();
+            user.setUserName(accountParams[0]);
+            user.setFullName(accountParams[1]);
+            user.setAddress(accountParams[2]);
+            user.setZipCode(accountParams[3]);
+            user.setPassword(accountParams[4]);
+            user.setEmail(accountParams[5]);
+            user.setPhone(accountParams[6]);
+            user.setRole("user");
+            session.save(user);
+            session.getTransaction().commit();
+            session.close(); // kanske skall kommenteras bort
+            return true;
         } catch (Exception ex) {
-            System.out.println(ex);
+            System.out.println("Exception in creating account : " + ex);
         }
-        return DatatypeConverter.printHexBinary(passwordDigested);
+        if (session != null) {
+            session.clear();
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
+    public String checkIfCredsAvaliable(String username, String email) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            List<String> emailsTaken = new ArrayList<>();
+            List<String> usernamesTaken = new ArrayList<>();
+            List<User> users = (List<User>) session.createQuery("from User").list();
+            for (Iterator i = users.iterator(); i.hasNext();) {
+                User user = (User) i.next();
+                emailsTaken.add(user.getEmail());
+                usernamesTaken.add(user.getUserName());
+            }
+            session.getTransaction().commit();
+            if (!usernamesTaken.contains(username)) {
+                if (!emailsTaken.contains(email)) {
+                    session.close();
+                    return "OK";
+                } else {
+                    return "Email taken";
+                }
+            } else {
+                return "Username taken";
+            }
+        } catch (Exception ex) {
+            System.out.println("Something went wrong with checking if credentials is avaliable : " + ex);
+        }
+        return "error";
     }
 }

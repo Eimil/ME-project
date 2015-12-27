@@ -5,10 +5,8 @@
         <group name="ME-project">
             <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/RetrievePasswordServlet.java</file>
             <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/web/forgotpassword.jsp</file>
-            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/web/index.jsp</file>
-            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/web/login.jsp</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/CreateAccountServlet.java</file>
             <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/web/createaccount.jsp</file>
-            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/logics/PasswordRetrieval.java</file>
         </group>
     </open-files>
 </project-private>

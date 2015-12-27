@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +14,7 @@ import logics.PasswordRetrievalLocal;
  */
 public class RetrievePasswordServlet extends HttpServlet {
 
-    private Random random;
-    private int length = 20;
+    private final int length = 20;
 
     @EJB
     private PasswordRetrievalLocal passwordRetrieval;
@@ -24,23 +22,41 @@ public class RetrievePasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+            
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email");
-        System.out.println("The email is : " + email);
-        // Kolla så att account med den emailen existerar sen dra en if runt resten
-        String randomText = passwordRetrieval.generateRandomString(random, email, length);
-        String hashedPass = passwordRetrieval.hashPassword(randomText);
-        // Insert to DB at account med email = email;
-        boolean result = passwordRetrieval.sendMailToUser(email, randomText);
-        if (result) {
-            // Confirma att mail är skickat
-        } else {
-            // Visa ett error
+        if (email != null && !email.equals("")) {
+            String genString = "d35kaBedpqsSaiNUSktyZvmQLWorI";
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text/plain");
+            // Kollab så att account med den emailen existerar sen dra en if runt resten
+            String randomText = passwordRetrieval.generateRandomString(genString, length);
+            String hashedPass = passwordRetrieval.hashPassword(randomText);
+            if (passwordRetrieval.setNewPassword(hashedPass, email)) {
+                if (passwordRetrieval.sendMailToUser(email, randomText)) {
+                    response.sendRedirect(response.encodeRedirectURL("login.jsp"));
+                } else {
+                    request = setError(request, "Kunde inte skicka ut mail", "Internt fel");
+                    request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+                }
+            } else {
+                request = setError(request, "Kunde inte sätta ett nytt lösnord", "Email existerar inte");
+                request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
+            }
         }
-
     }
+
+    private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
+        request.setAttribute("error", error);
+        request.setAttribute("page", "forgotpassword.jsp");
+        request.setAttribute("reason", reason);
+        return request;
+    }
+
 }
