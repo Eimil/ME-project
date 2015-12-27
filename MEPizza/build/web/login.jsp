@@ -21,13 +21,16 @@
             <li><a href='login.jsp'>Logga in</a></li>
          </div>
          <div id="main_box">
-            <form method="post" action="" >
+            <form method="post" action="LoginServlet" >
                <input type="text" name="username" placeholder='Användarnamn'  value="" required/>
                <br>
                <input type="password" name="password"  placeholder='Lösenord' value=""  required />
                <br>
                <input type="submit" name="login" value="Logga in" />
             </form>
+              ${error}
+              ${page}
+              ${reason}
             <br>
             <a href=createaccount.jsp> Registrera dig </a>
             <br>

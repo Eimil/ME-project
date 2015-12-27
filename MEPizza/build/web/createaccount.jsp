@@ -41,6 +41,9 @@
                <br>
                <input type="submit" name="create" id ="create" value="Skapa konto" />
             </form>
+              ${error}
+              ${page}
+              ${reason}
             <br>
          </div>
          <div id="fotter">
