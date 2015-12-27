@@ -348,3 +348,21 @@ a:visited{
 	position:relative;
 	top:1px;
 }
+ #main_box input[type="text"] { 
+    margin:2px;
+    border: 2px solid green;
+}
+ #main_box input[type="text"]:invalid { 
+    border: 2px solid orange;
+}
+ #main_box input[type="password"] { 
+      margin:2px;
+    border: 2px solid green;
+}
+ #main_box input[type="password"]:invalid { 
+    border: 2px solid orange;
+}
+#main_box  form {
+    display: inline-block;
+    text-align: center;
+    }
