@@ -44,6 +44,7 @@ public class AccountCreator implements AccountCreatorLocal {
             user.setPassword(accountParams[4]);
             user.setEmail(accountParams[5]);
             user.setPhone(accountParams[6]);
+            user.setActive(true);
             user.setRole("user");
             session.save(user);
             session.getTransaction().commit();
