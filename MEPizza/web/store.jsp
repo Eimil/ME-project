@@ -38,9 +38,21 @@
                 <th>Allternativ</th>
     
             </tr>
-            ${rows}
+            ${products}
+            
         </table>
-        
+         <table rowspan="0" border="0" cellspacing="0">
+            <tr>
+                <th>Produkt</th>
+                <th>Beskrivning</th>
+                <th>Pris</th>
+                <th>Bild</th>
+                <th>Allternativ</th>
+    
+            </tr>
+            ${cart}
+            
+        </table>
            <form action="StoreController">
                 <input type="submit" name="logoutButton" value="Logga ut"> 
            </form>

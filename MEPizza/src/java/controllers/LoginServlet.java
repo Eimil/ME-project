@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                     meCookie.setMaxAge(15 * 60);
                     //meCookie.setSecure(true); skickas endast med endast ssl / https
                     response.addCookie(meCookie);
-                    response.sendRedirect("StoreController");
+                    response.sendRedirect("ProductController");
                 } else {
                     request = setError(request, "Kunde inte logga in", "Felaktiga uppgifter");
                     request.getRequestDispatcher("login.jsp").forward(request, response);

@@ -20,7 +20,7 @@
     </servlet>
     <servlet>
         <servlet-name>StoreController</servlet-name>
-        <servlet-class>controllers.StoreController</servlet-class>
+        <servlet-class>controllers.StoreControllerold</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingsServlet</servlet-name>
