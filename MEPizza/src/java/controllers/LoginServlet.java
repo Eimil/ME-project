@@ -35,13 +35,12 @@ public class LoginServlet extends HttpServlet {
                 String hashedUser = loginChecker.hashString(username);
                 String hashedPass = loginChecker.hashString(password);
                 if (loginChecker.checkIfValid(hashedUser, hashedPass).equals("GOOD")) {
-                    System.out.println("LOGIN WAS GOOD");
-                    Cookie meCookie = new Cookie("user", "true");
+                    Cookie meCookie = new Cookie("mePizzaUser", "true");
                     meCookie.setMaxAge(15 * 60);
+                    //meCookie.setSecure(true); skickas endast med endast ssl / https
                     response.addCookie(meCookie);
-                    response.sendRedirect("store.jsp");
+                    response.sendRedirect("StoreController");
                 } else {
-                    System.out.println("LOGIN WAS BAD");
                     request = setError(request, "Kunde inte logga in", "Felaktiga uppgifter");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }

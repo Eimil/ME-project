@@ -18,6 +18,14 @@
         <servlet-name>RetrievePasswordServlet</servlet-name>
         <servlet-class>controllers.RetrievePasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StoreController</servlet-name>
+        <servlet-class>controllers.StoreController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingsServlet</servlet-name>
+        <servlet-class>controllers.SettingsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -29,6 +37,14 @@
     <servlet-mapping>
         <servlet-name>RetrievePasswordServlet</servlet-name>
         <url-pattern>/RetrievePasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StoreController</servlet-name>
+        <url-pattern>/StoreController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingsServlet</servlet-name>
+        <url-pattern>/SettingsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
