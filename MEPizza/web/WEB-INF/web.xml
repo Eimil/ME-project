@@ -26,6 +26,10 @@
         <servlet-name>SettingsServlet</servlet-name>
         <servlet-class>controllers.SettingsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductController</servlet-name>
+        <servlet-class>controllers.ProductController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -45,6 +49,10 @@
     <servlet-mapping>
         <servlet-name>SettingsServlet</servlet-name>
         <url-pattern>/SettingsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductController</servlet-name>
+        <url-pattern>/ProductController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
