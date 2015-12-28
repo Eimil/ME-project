@@ -19,7 +19,6 @@
          </div>
          <div id="meny">
             <li><a href='login.jsp'>Logga in</a></li>
-        
          </div>
          <div id="main_box">
             <h1>Välkommen till ME-Pizza</h1>

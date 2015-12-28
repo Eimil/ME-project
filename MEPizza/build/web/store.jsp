@@ -25,7 +25,6 @@
          </div>
          <div id="meny">
             <li><a href='login.jsp'>Logga in</a></li>
-            <li><a href='LogoutController'>Logga ut</a></li>
          </div>
          <div id="main_box">
                      
