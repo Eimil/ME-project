@@ -45,4 +45,22 @@ public class SettingsServlet extends HttpServlet {
         request.setAttribute("reason", reason);
         return request;
     }
+
+    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Cookie loginCookie = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("mePizzaUser")) {
+                    loginCookie = cookie;
+                    break;
+                }
+            }
+        }
+        if (loginCookie != null) {
+            loginCookie.setMaxAge(0);
+            response.addCookie(loginCookie);
+        }
+        response.sendRedirect("login.jsp");
+    }
 }

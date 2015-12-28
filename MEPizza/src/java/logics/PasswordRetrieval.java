@@ -79,12 +79,10 @@ public class PasswordRetrieval implements PasswordRetrievalLocal {
         try {
             org.hibernate.Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            System.out.println("BEFORE USER");
             User user = (User) session.createQuery("select user from User user where user.email = :email and user.active='1'")
                     .setParameter("email", email)
                     .uniqueResult();
             session.getTransaction().commit();
-            System.out.println("GOT THE USER MATE");
             session.beginTransaction();
             user.setPassword(newPassword);
             session.save(user);

@@ -33,6 +33,33 @@ public class StoreController extends HttpServlet {
         }
         if (userName == null) {
             response.sendRedirect("login.jsp");
+        } else {
+            response.sendRedirect("store.jsp");
         }
+    }
+
+    private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
+        request.setAttribute("error", error);
+        request.setAttribute("page", "accountsettings.jsp");
+        request.setAttribute("reason", reason);
+        return request;
+    }
+
+    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Cookie loginCookie = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("mePizzaUser")) {
+                    loginCookie = cookie;
+                    break;
+                }
+            }
+        }
+        if (loginCookie != null) {
+            loginCookie.setMaxAge(0);
+            response.addCookie(loginCookie);
+        }
+        response.sendRedirect("login.jsp");
     }
 }
