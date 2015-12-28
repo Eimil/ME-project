@@ -19,6 +19,7 @@
          </div>
          <div id="meny">
             <li><a href='login.jsp'>Logga in</a></li>
+       
          </div>
          <div id="main_box">
             <form method="post" action="LoginServlet" >
