@@ -43,7 +43,7 @@ public class LoginChecker implements LoginCheckerLocal {
             if (user.getFullName() != null) {
                 System.out.println("Username is : " + user.getUserName());
                 System.out.println("Password is : " + user.getPassword());
-                return "GOOD";
+                return user.getId().toString();
             }
             session.close(); // kanske skall kommenteras bort
         } catch (Exception ex) {

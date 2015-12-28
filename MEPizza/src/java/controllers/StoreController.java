@@ -22,16 +22,16 @@ public class StoreController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName = null;
+        String userId = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("mePizzaUser")) {
-                    userName = cookie.getValue();
+                    userId = cookie.getValue();
                 }
             }
         }
-        if (userName == null) {
+        if (userId == null) {
             response.sendRedirect("login.jsp");
         } else {
             response.sendRedirect("store.jsp");
