@@ -34,8 +34,9 @@ public class LoginServlet extends HttpServlet {
             if (password != null && password.length() > 3) {
                 String hashedUser = loginChecker.hashString(username);
                 String hashedPass = loginChecker.hashString(password);
-                if (loginChecker.checkIfValid(hashedUser, hashedPass).equals("GOOD")) {
-                    Cookie meCookie = new Cookie("mePizzaUser", "true");
+                String result = loginChecker.checkIfValid(hashedUser, hashedPass);
+                if (!result.equals("BAD")) {
+                    Cookie meCookie = new Cookie("mePizzaUser", result);
                     meCookie.setMaxAge(15 * 60);
                     //meCookie.setSecure(true); skickas endast med endast ssl / https
                     response.addCookie(meCookie);
