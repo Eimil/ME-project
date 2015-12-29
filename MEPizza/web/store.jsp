@@ -25,6 +25,7 @@
          </div>
          <div id="meny">
             <li><a href='login.jsp'>Logga in</a></li>
+            <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
             <li><a href='LogoutController'>Logga ut</a></li>
          </div>
          <div id="main_box">
@@ -40,10 +41,6 @@
             </tr>
             ${rows}
         </table>
-        
-           <form action="StoreController">
-                <input type="submit" name="logoutButton" value="Logga ut"> 
-           </form>
          </div>
          <div id="fotter">
             <p id="nere">Utvecklad av Magnus Kanfjäll & Emil Ejder</p>

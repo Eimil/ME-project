@@ -3,9 +3,7 @@
     Created on : 2015-dec-27, 22:21:06
     Author     : Emil Ejder
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+ <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <meta name="author" content="Magnus Kanfjäll,Emil Ejder">
@@ -25,32 +23,33 @@
          </div>
          <div id="meny">
             <li><a href='login.jsp'>Logga in</a></li>
+            <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
+            <li><a href='LogoutController'>Logga ut</a></li>
          </div>
          <div id="main_box">
             <form method="post" action="SettingsServlet">
-               <input type="text" name="username" placeholder='Användarnamn'  value="" required/>
+               Fullständigt namn : <input type="text" name="fullname" placeholder=${fullname}  value=""/>
                <br>
-               <input type="text" name="fullname" placeholder='Fullständigt namn'  value="" required/>
+               Adress : <input type="text" name="address" placeholder=${address}  value=""/>
                <br>
-               <input type="text" name="address" placeholder='Adress'  value="" required/>
+               Postnummer : <input type="text" name="zipcode" placeholder=${zipcode}  value=""/>
                <br>
-               <input type="text" name="zipcode" placeholder='Postnummer'  value="" required/>
+               Lösenord :<input type="password" name="password" placeholder='Gammalt lösenord'  value=""/>
                <br>
-               <input type="password" name="password1" placeholder='Gammalt lösenord'  value="" required/>
+               Nytt lösenord (1) :<input type="password" name="passwordNew" placeholder='Nytt lösenord'  value=""/>
                <br>
-               <input type="password" name="password1" placeholder='Nytt lösenord'  value="" required/>
+               Nytt Lösenord (2) :<input type="password" name="passwordNew2" placeholder='Nytt lösenord igen'  value=""/>
                <br>
-               <input type="password" name="password2" placeholder='Nytt lösenord igen'  value="" required/>
+               Email : <input type="text" name="email" placeholder=${email}  value=""/>
                <br>
-               <input type="text" name="email" placeholder='Email adress'  value="" required/>
+               Telefonnummer : <input type="text" name="phone" placeholder=${phone} value=""/>
                <br>
-               <input type="text" name="phone" placeholder='Telefonnummer'  value="" required/>
-               <br>
-               <input type="submit" name="create" id ="create" value="Skapa konto" />
+               <input type="submit" name="changeButton" value="Ändra kontouppgifter" />
             </form>
               ${error}
               ${page}
               ${reason}
+              ${result}
             <br>
          </div>
          <div id="fotter">

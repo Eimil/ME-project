@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -15,28 +17,91 @@ import logics.AccountInfoChangerLocal;
  */
 public class SettingsServlet extends HttpServlet {
 
+    private final List<String> infoMapping = Arrays.asList("fullname", "address", "zipcode", "password", "passwordNew", "passwordNew2", "email", "phone");
+    private String[] userInfo;
+    private String[] newUserInfo;
+    private String[] composedUserInfo;
+
     @EJB
     private AccountInfoChangerLocal accountInfoChanger;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String changeButton = request.getParameter("changeButton");
+        System.out.println("First in servlet, the address is : " + request.getParameter("address"));
         Cookie[] cookies = request.getCookies();
+        String userID = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
-                    // Helt ok
-                    // ladda userinfo från bean baserad på email eller username
+                if (cookie.getName().equals("mePizzaUser")) {
+                    userID = cookie.getValue();
                 }
             }
-        } else {
-            response.sendRedirect("login.jsp");
         }
+        if (userID == null) {
+            response.sendRedirect("login.jsp");
+        } else {
+            userInfo = accountInfoChanger.loadUserInfo(userID);
+            if (changeButton != null && changeButton.length() > 3) {
+                newUserInfo = processUserInput(request, userInfo);
+                if (newUserInfo[3] != null && newUserInfo[4] != null && newUserInfo[5] != null) { // If you have chosen to change password
+                    if (accountInfoChanger.checkPassword(accountInfoChanger.hashString(newUserInfo[3]))) { // If the old password is incorrect
+                        if (!IsPasswordsMatching(newUserInfo[4], newUserInfo[5])) {
+                            request = setError(request, "Kunde inte byta lösnord", "Lösenorden matchar inte");
+                            loadPage(request, response);
+                        }
+                    } else {
+                        request = setError(request, "Kunde inte byta lösenord", "Felaktigt nuvarande lösenord");
+                        loadPage(request, response);
+                    }
+                } else if (newUserInfo[3] != null || newUserInfo[4] != null || newUserInfo[5] != null) { // If some of the password fields had no input
+                    request = setError(request, "Kunde inte byta lösenord", "Saknas input");
+                    loadPage(request, response);
+                }
+                composeNewInfo();
+                if (!accountInfoChanger.changeUserInfo(composedUserInfo, userID).equalsIgnoreCase("good")) {
+                    request = setError(request, "Kunde inte modifiera kontot", "Internt fel");
+                }
+                userInfo = accountInfoChanger.loadUserInfo(userID);
+                request.setAttribute("result", "Kontouppgifterna har ändrats!");
+                loadPage(request, response);
+            } else {
+                loadPage(request, response);
+            }
+        }
+    }
+
+    private String[] processUserInput(HttpServletRequest request, String[] oldParams) {
+        String newInfo[] = new String[8];
+        for (int i = 0; i < newInfo.length; i++) {
+            if (request.getParameter(infoMapping.get(i)) != null && !request.getParameter(infoMapping.get(i)).equals("")) {
+                newInfo[i] = request.getParameter(infoMapping.get(i));
+                System.out.println("IN LOOP, THE VALUE IS : " + newInfo[i]);
+            }
+        }
+        return newInfo;
+    }
+
+    private boolean IsPasswordsMatching(String password, String passwordRepeated) {
+        return password.equals(passwordRepeated);
+    }
+
+    private void composeNewInfo() {
+        composedUserInfo = new String[6];
+        composedUserInfo[0] = newUserInfo[0]; // name
+        composedUserInfo[1] = newUserInfo[1]; // address
+        composedUserInfo[2] = newUserInfo[2]; // zipcode
+        composedUserInfo[3] = newUserInfo[4]; // new password
+        composedUserInfo[4] = newUserInfo[6]; // email
+        composedUserInfo[5] = newUserInfo[7]; // phone
     }
 
     private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
@@ -46,21 +111,12 @@ public class SettingsServlet extends HttpServlet {
         return request;
     }
 
-    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie loginCookie = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaUser")) {
-                    loginCookie = cookie;
-                    break;
-                }
-            }
-        }
-        if (loginCookie != null) {
-            loginCookie.setMaxAge(0);
-            response.addCookie(loginCookie);
-        }
-        response.sendRedirect("login.jsp");
+    private void loadPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("fullname", userInfo[0]);
+        request.setAttribute("address", userInfo[1]);
+        request.setAttribute("zipcode", userInfo[2]);
+        request.setAttribute("email", userInfo[3]);
+        request.setAttribute("phone", userInfo[4]);
+        request.getRequestDispatcher("accountsettings.jsp").forward(request, response);
     }
 }

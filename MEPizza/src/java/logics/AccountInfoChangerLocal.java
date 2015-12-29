@@ -11,8 +11,10 @@ public interface AccountInfoChangerLocal {
     
     String hashString(String userParam);
 
-    String changeUserInfo(String [] newInfo);
+    String changeUserInfo(String [] newInfo, String userId);
 
-    String [] loadUserInfo(String previousInfo);
+    String [] loadUserInfo(String userId);
+
+    boolean checkPassword(String password);
     
 }

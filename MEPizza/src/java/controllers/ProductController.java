@@ -21,6 +21,13 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String userID = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -37,29 +44,13 @@ public class ProductController extends HttpServlet {
             request.setAttribute("rows", rows);
             request.getRequestDispatcher("store.jsp").forward(request, response);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
 
     }
-    
-    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie loginCookie = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaUser")) {
-                    loginCookie = cookie;
-                    break;
-                }
-            }
-        }
-        if (loginCookie != null) {
-            loginCookie.setMaxAge(0);
-            response.addCookie(loginCookie);
-        }
-        response.sendRedirect("login.jsp");
+
+    private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
+        request.setAttribute("error", error);
+        request.setAttribute("page", "accountsettings.jsp");
+        request.setAttribute("reason", reason);
+        return request;
     }
 }
