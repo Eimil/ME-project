@@ -1,12 +1,12 @@
 package hibernate;
-// Generated 2015-dec-28 21:41:19 by Hibernate Tools 4.3.1
+// Generated 2015-dec-29 22:18:04 by Hibernate Tools 4.3.1
 
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -19,27 +19,48 @@ import javax.persistence.Table;
 public class Orderlist  implements java.io.Serializable {
 
 
-     private OrderlistId id;
+     private Integer id;
+     private int orderId;
+     private int productId;
 
     public Orderlist() {
     }
 
-    public Orderlist(OrderlistId id) {
-       this.id = id;
+    public Orderlist(int orderId, int productId) {
+       this.orderId = orderId;
+       this.productId = productId;
     }
    
-     @EmbeddedId
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="orderId", column=@Column(name="OrderId", nullable=false) ), 
-        @AttributeOverride(name="productId", column=@Column(name="ProductId", nullable=false) ) } )
-    public OrderlistId getId() {
+    @Column(name="id", unique=true, nullable=false)
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(OrderlistId id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    
+    @Column(name="OrderId", nullable=false)
+    public int getOrderId() {
+        return this.orderId;
+    }
+    
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    
+    @Column(name="ProductId", nullable=false)
+    public int getProductId() {
+        return this.productId;
+    }
+    
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
 

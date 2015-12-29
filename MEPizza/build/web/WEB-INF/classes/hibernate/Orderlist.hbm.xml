@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 2015-dec-28 21:41:19 by Hibernate Tools 4.3.1 -->
+<!-- Generated 2015-dec-29 22:18:05 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="hibernate.Orderlist" table="orderlist" catalog="mepizza" optimistic-lock="version">
-        <composite-id name="id" class="hibernate.OrderlistId">
-            <key-property name="orderId" type="int">
-                <column name="OrderId" />
-            </key-property>
-            <key-property name="productId" type="int">
-                <column name="ProductId" />
-            </key-property>
-        </composite-id>
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="orderId" type="int">
+            <column name="OrderId" not-null="true" />
+        </property>
+        <property name="productId" type="int">
+            <column name="ProductId" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
