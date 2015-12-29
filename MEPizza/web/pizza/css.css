@@ -153,6 +153,16 @@ a:visited{
 #main_box tr:nth-child(even) {
     background: orange;
 }
+#main_box table {
+    color: black;
+}
+#main_box form tr:nth-child(even) {
+    background: #D6D4D4;
+}
+#main_box form tr:nth-child(odd) {
+    background: #D6D4D4;
+}
+
 
 
 

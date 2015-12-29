@@ -28,22 +28,48 @@
          </div>
          <div id="main_box">
             <form method="post" action="SettingsServlet">
-               Fullständigt namn : <input type="text" name="fullname" placeholder=${fullname}  value=""/>
-               <br>
-               Adress : <input type="text" name="address" placeholder=${address}  value=""/>
-               <br>
-               Postnummer : <input type="text" name="zipcode" placeholder=${zipcode}  value=""/>
-               <br>
-               Lösenord :<input type="password" name="password" placeholder='Gammalt lösenord'  value=""/>
-               <br>
-               Nytt lösenord (1) :<input type="password" name="passwordNew" placeholder='Nytt lösenord'  value=""/>
-               <br>
-               Nytt Lösenord (2) :<input type="password" name="passwordNew2" placeholder='Nytt lösenord igen'  value=""/>
-               <br>
-               Email : <input type="text" name="email" placeholder=${email}  value=""/>
-               <br>
-               Telefonnummer : <input type="text" name="phone" placeholder=${phone} value=""/>
-               <br>
+                
+                <table cellspacing="0" rwospan="0" border="0">
+                    <tr>
+                        <td>Fullständigt namn :</td>
+                        <td><input type="text" name="fullname" placeholder=""  value="${fullname}"/></td>
+                    </tr>
+                     <tr>
+                        <td>Adress : </td>
+                        <td> <input type="text" name="address" placeholder=${address}  value=""/></td>
+                    </tr>
+                     <tr>
+                        <td>Postnummer : </td>
+                        <td> <input type="text" name="zipcode" placeholder=${zipcode}  value=""/></td>
+                    </tr>
+                     <tr>
+                        <td>Lösenord : </td>
+                        <td> <input type="password" name="password" placeholder='Gammalt lösenord'  value=""/></td>
+                    </tr>
+                     <tr>
+                        <td>Nytt lösenord (1) : </td>
+                        <td> <input type="password" name="passwordNew" placeholder='Nytt lösenord'  value=""/></td>
+                    </tr>
+                     <tr>
+                        <td>Nytt Lösenord (2) : </td>
+                        <td> <input type="password" name="passwordNew2" placeholder='Nytt lösenord igen'  value=""/></td>
+                    </tr>
+                      <tr>
+                        <td>Email : </td>
+                        <td> <input type="text" name="email" placeholder=${email}  value=""/></td>
+                    </tr>
+                      <tr>
+                        <td>Telefonnummer : </td>
+                        <td><input type="text" name="phone" placeholder=${phone} value=""/></td>
+                    </tr>
+                </table>
+                
+                
+                
+                
+            
+               
+             
                <input type="submit" name="changeButton" value="Ändra kontouppgifter" />
             </form>
               ${error}
