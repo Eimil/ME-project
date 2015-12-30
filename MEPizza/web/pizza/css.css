@@ -149,9 +149,14 @@ a:visited{
 }
 #main_box th {
     text-align: left;
+    background: black;
+    color:white;
+}
+#main_box tr:nth-child(odd) {
+    background: #C3C3C3;
 }
 #main_box tr:nth-child(even) {
-    background: orange;
+    background: #CCCAC8;
 }
 #main_box table {
     color: black;
@@ -161,6 +166,10 @@ a:visited{
 }
 #main_box form tr:nth-child(odd) {
     background: #D6D4D4;
+}
+#main_box .total{
+    background: #8C0000!important;
+    color:white;
 }
 
 

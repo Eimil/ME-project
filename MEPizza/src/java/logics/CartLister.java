@@ -7,6 +7,7 @@ package logics;
 
 import hibernate.HibernateUtil;
 import hibernate.Cart;
+import hibernate.Product;
 import java.util.List;
 import javax.ejb.Stateless;
 import org.hibernate.Session;
@@ -28,25 +29,45 @@ public class CartLister implements CartListerLocal {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
                    
-            theCart =(List<Cart>) session.createQuery("from Cart").list();
+            theCart =(List<Cart>) session.createQuery("select cart from Cart cart where cart.userId = :userId").setParameter("userId", userId).list();
             session.getTransaction().commit();
-            session.close(); // kanske skall kommenteras bort
-        } catch (Exception ex) {
-            System.out.println("Exception in finding account : " + ex);
-        }
+            
+          
+       
         
         
-        
+        int total=0;
         
         for(int i=0; i<theCart.size(); i++){
-            retuner+="<tr>";
             Cart pr = theCart.get(i);
-            retuner+="<td>"+pr.getProductId()+"</td>";
             
+            session.beginTransaction();
+            Product Product = (Product) session.createQuery("select product from Product product where product.id = :id")
+                    .setParameter("id", pr.getProductId())
+                    .uniqueResult();
+            session.getTransaction().commit();
+            
+            
+            
+            retuner+="<tr>";
+            
+            retuner+="<td>"+Product.getName()+"</td>";
+            retuner+="<td>1st</td>";
+            retuner+="<td>"+Product.getPrice()+"kr</td>";
             
             retuner+="</tr>";
+            
+            total+=Product.getPrice();
+            
         }
+        retuner+="<tr class='total'><td colspan='2'>Total:</td><td>"+total+"kr</td><tr>";
         
+        
+        session.close();  
+        
+         } catch (Exception ex) {
+            System.out.println("Exception in finding account : " + ex);
+        }
       return retuner;
    }
 }

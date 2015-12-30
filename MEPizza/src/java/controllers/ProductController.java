@@ -43,6 +43,7 @@ public class ProductController extends HttpServlet {
             
             request.setAttribute("products", products);
             request.setAttribute("cart", cart);
+            request.setAttribute("infobox", "<h3>Inloggad som ID:"+userID+"</h3>");
             request.getRequestDispatcher("store.jsp").forward(request, response);
         }
     }

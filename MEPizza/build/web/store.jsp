@@ -19,7 +19,7 @@
          <div id="box">
             <div id="Logga">
                <div id="infobox">
-                  <h3>Utloggad</h3>
+                  ${infobox}
                </div>
             </div>
          </div>
@@ -31,26 +31,25 @@
          <div id="main_box">
                      
         <table rowspan="0" border="0" cellspacing="0">
-            <tr>
+            <thead>
                 <th>Produkt</th>
                 <th>Beskrivning</th>
                 <th>Bild</th>
                  <th>Pris</th>
                 <th>Allternativ</th>
     
-            </tr>
+            </thead>
             ${products}
            
         </table>
                 <table rowspan="0" border="0" cellspacing="0">
-            <tr>
+            <thead>
                 <th>Produkt</th>
-                <th>Beskrivning</th>
+                <th>Antal</th>
                 <th>Pris</th>
-                <th>Bild</th>
-                <th>Allternativ</th>
+            
     
-            </tr>
+            </thead>
             ${cart}
            
         </table>
