@@ -3,7 +3,6 @@ package logics;
 /*
 * The Stateless Session Bean which performs the logics behind listing products.
  */
-
 import hibernate.HibernateUtil;
 import hibernate.Product;
 import java.util.List;
@@ -36,15 +35,19 @@ public class ProductLister implements ProductListerLocal {
         }
 
         for (int i = 0; i < products.size(); i++) {
-            returner += "<tr>";
             Product pr = products.get(i);
+            returner += "<form action=\"ProductController\" method=\"post\">\n"
+                    + " \n"
+                    + "  <input type=\"hidden\" name=\"id\" value=\""+pr.getId()+"\">";
+            returner += "<tr>";
+            
             returner += "<td>" + pr.getName() + "</td>";
             returner += "<td>" + pr.getDescription() + "</td>";
             returner += "<td><img src=\"" + pr.getPicLink() + "\" height=\"42\" width=\"42\"></td>";
             returner += "<td>" + pr.getPrice() + "</td>";
-            returner += "<td><a href=\"" + pr.getId() + "\">Lägg till kundvagn</a></td>";
+            returner += "<td><input type=\"submit\" value=\"Lägg till kundvagn\"></td>";
 
-            returner += "</tr>";
+            returner += "</tr></form>";
         }
 
         return returner;

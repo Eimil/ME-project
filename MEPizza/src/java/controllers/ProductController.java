@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logics.CartHandlerLocal;
 import logics.CartListerLocal;
 import logics.ProductListerLocal;
 
@@ -19,6 +20,9 @@ import logics.ProductListerLocal;
  * @author Magnus Kanfjäll
  */
 public class ProductController extends HttpServlet {
+
+    @EJB
+    private CartHandlerLocal cartHandler;
 
      /*
     *   The reference to the EJB used to list the items in the cart
@@ -69,6 +73,39 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
+        //Cookie controll
+        String userID = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("mePizzaUser")) {
+                    userID = cookie.getValue();
+                    cookie.setMaxAge(15 * 60);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        
+        //Add to cart
+        int id=Integer.parseInt(request.getParameter("id"));
+        cartHandler.addToCart(id, Integer.parseInt(userID));
+        
+        
+        if (userID == null) {
+            response.sendRedirect("login.jsp");
+        } else {
+
+            String products = productLister.getProductsAsHtmlRows();
+            String cart = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+
+            request.setAttribute("products", products);
+            request.setAttribute("cart", cart);
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
+            request.getRequestDispatcher("store.jsp").forward(request, response);
+        }
 
     }
 }
