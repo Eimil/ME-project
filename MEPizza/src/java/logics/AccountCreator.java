@@ -1,5 +1,8 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind creating an account.
+ */
 import java.security.MessageDigest;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
@@ -17,11 +20,14 @@ import org.hibernate.Session;
 @Stateless
 public class AccountCreator implements AccountCreatorLocal {
 
+    /*
+    *   Method which is called to hash the selected String.
+     */
     @Override
     public String hashString(String userParam) {
         byte[] usernameDigested = null;
         try {
-            MessageDigest paramMD=  MessageDigest.getInstance("SHA-256");
+            MessageDigest paramMD = MessageDigest.getInstance("SHA-256");
             paramMD.update(userParam.getBytes("UTF-8"));
             usernameDigested = paramMD.digest();
         } catch (Exception ex) {
@@ -30,6 +36,9 @@ public class AccountCreator implements AccountCreatorLocal {
         return DatatypeConverter.printHexBinary(usernameDigested);
     }
 
+    /*
+    *   Method which is called to create an account (User).
+     */
     @Override
     public boolean createAccount(String[] accountParams) {
         Session session = null;
@@ -60,6 +69,9 @@ public class AccountCreator implements AccountCreatorLocal {
         return false;
     }
 
+    /*
+    *   Method which is called to check if the credentials is avaliable.
+     */
     @Override
     public String checkIfCredsAvaliable(String username, String email) {
         try {

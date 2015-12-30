@@ -1,9 +1,8 @@
 <%-- 
     Document   : store
     Created on : 2015-dec-27, 19:42:22
-    Author     : Emil Ejder
+    Author     : Magnus Kanfjäll
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,7 +23,6 @@
                             </div>
                         </div>
                         <div id="meny">
-                            <li><a href='login.jsp'>Logga in</a></li>
                             <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
                             <li><a href='LogoutController'>Logga ut</a></li>
                         </div>

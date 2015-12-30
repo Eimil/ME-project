@@ -1,5 +1,9 @@
 package controllers;
 
+/*
+*  The servlet acting as a controller for the purpose of changing account info
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -22,36 +26,47 @@ public class SettingsServlet extends HttpServlet {
     private String[] newUserInfo;
     private String[] composedUserInfo;
 
+    /*
+    *   The reference to the EJB used to change the account info
+     */
     @EJB
     private AccountInfoChangerLocal accountInfoChanger;
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
     }
 
+    /*
+    *   Method which handles the POST request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String changeButton = request.getParameter("changeButton");
-        System.out.println("First in servlet, the address is : " + request.getParameter("address"));
         Cookie[] cookies = request.getCookies();
         String userID = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("mePizzaUser")) {
                     userID = cookie.getValue();
+                    cookie.setMaxAge(15 * 60);
+                    response.addCookie(cookie);
                 }
             }
         }
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
             userInfo = accountInfoChanger.loadUserInfo(userID);
             if (changeButton != null && changeButton.length() > 3) {
-                newUserInfo = processUserInput(request, userInfo);
+                newUserInfo = processUserInput(request);
                 if (newUserInfo[3] != null && newUserInfo[4] != null && newUserInfo[5] != null) { // If you have chosen to change password
                     if (accountInfoChanger.checkPassword(accountInfoChanger.hashString(newUserInfo[3]))) { // If the old password is incorrect
                         if (!IsPasswordsMatching(newUserInfo[4], newUserInfo[5])) {
@@ -79,21 +94,29 @@ public class SettingsServlet extends HttpServlet {
         }
     }
 
-    private String[] processUserInput(HttpServletRequest request, String[] oldParams) {
+    /*
+    *   Method which is called to read the clients inputted parametres
+     */
+    private String[] processUserInput(HttpServletRequest request) {
         String newInfo[] = new String[8];
         for (int i = 0; i < newInfo.length; i++) {
             if (request.getParameter(infoMapping.get(i)) != null && !request.getParameter(infoMapping.get(i)).equals("")) {
                 newInfo[i] = request.getParameter(infoMapping.get(i));
-                System.out.println("IN LOOP, THE VALUE IS : " + newInfo[i]);
             }
         }
         return newInfo;
     }
 
+    /*
+    *   Method which is called to check if the inputed passwords matches
+     */
     private boolean IsPasswordsMatching(String password, String passwordRepeated) {
         return password.equals(passwordRepeated);
     }
 
+    /*
+    *   Method which is called to compress values into a smaller array
+     */
     private void composeNewInfo() {
         composedUserInfo = new String[6];
         composedUserInfo[0] = newUserInfo[0]; // name
@@ -104,6 +127,9 @@ public class SettingsServlet extends HttpServlet {
         composedUserInfo[5] = newUserInfo[7]; // phone
     }
 
+    /*
+    *   Method which is called to set the error parametres later displayed to client.
+     */
     private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
         request.setAttribute("error", error);
         request.setAttribute("page", "accountsettings.jsp");
@@ -111,6 +137,9 @@ public class SettingsServlet extends HttpServlet {
         return request;
     }
 
+    /*
+    *   Method which is called to load the page with the user parametres
+     */
     private void loadPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("fullname", userInfo[0]);
         request.setAttribute("address", userInfo[1]);

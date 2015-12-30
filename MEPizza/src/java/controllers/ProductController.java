@@ -1,5 +1,9 @@
 package controllers;
 
+/*
+*  The servlet acting as a controller for the purpose of the shopping part
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,12 +20,21 @@ import logics.ProductListerLocal;
  */
 public class ProductController extends HttpServlet {
 
+     /*
+    *   The reference to the EJB used to list the items in the cart
+     */
     @EJB
     private CartListerLocal cartLister;
 
+    /*
+    *   The reference to the EJB used to list the avaliable products
+     */
     @EJB
     private ProductListerLocal productLister;
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,44 +44,31 @@ public class ProductController extends HttpServlet {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("mePizzaUser")) {
                     userID = cookie.getValue();
+                    cookie.setMaxAge(15 * 60);
+                    response.addCookie(cookie);
                 }
             }
         }
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-            
+
             String products = productLister.getProductsAsHtmlRows();
             String cart = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
-            
+
             request.setAttribute("products", products);
             request.setAttribute("cart", cart);
-            request.setAttribute("infobox", "<h3>Inloggad som ID:"+userID+"</h3>");
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
             request.getRequestDispatcher("store.jsp").forward(request, response);
         }
     }
 
+    /*
+    *   Method which handles the POST request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-    }
-    
-    private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie loginCookie = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaUser")) {
-                    loginCookie = cookie;
-                    break;
-                }
-            }
-        }
-        if (loginCookie != null) {
-            loginCookie.setMaxAge(0);
-            response.addCookie(loginCookie);
-        }
-        response.sendRedirect("login.jsp");
     }
 }

@@ -1,6 +1,9 @@
 package logics;
 
-import java.util.Random;
+/*
+ * Local interface for the PasswordRetrieval bean.
+ */
+
 import javax.ejb.Local;
 
 /**

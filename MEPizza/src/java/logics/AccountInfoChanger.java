@@ -1,5 +1,9 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind changing account info.
+ */
+
 import hibernate.HibernateUtil;
 import hibernate.User;
 import java.security.MessageDigest;
@@ -14,6 +18,9 @@ import org.hibernate.Session;
 @Stateless
 public class AccountInfoChanger implements AccountInfoChangerLocal {
 
+    /*
+    *   Method which is called to hash the selected String.
+     */ 
     @Override
     public String hashString(String userParam) {
         byte[] usernameDigested = null;
@@ -27,6 +34,9 @@ public class AccountInfoChanger implements AccountInfoChangerLocal {
         return DatatypeConverter.printHexBinary(usernameDigested);
     }
 
+    /*
+    *   Method which is called to change account info. (User)
+     */
     @Override
     public String changeUserInfo(String[] newInfo, String userId) {
         try {
@@ -71,6 +81,9 @@ public class AccountInfoChanger implements AccountInfoChangerLocal {
         return "BAD";
     }
 
+    /*
+    *   Method which is called to load the account info. (User)
+     */
     @Override
     public String[] loadUserInfo(String userId) {
         try {
@@ -96,6 +109,9 @@ public class AccountInfoChanger implements AccountInfoChangerLocal {
         return error;
     }
 
+    /*
+    *   Method which is called to check if the entered password is correct.
+     */
     @Override
     public boolean checkPassword(String hashedPassword) {
         try {

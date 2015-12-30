@@ -1,5 +1,9 @@
 package controllers;
 
+/*
+*  The servlet acting as a controller for the purpose of logging an account in
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,15 +19,24 @@ import logics.LoginCheckerLocal;
  */
 public class LoginServlet extends HttpServlet {
 
+    /*
+    *   The reference to the EJB used to logging in an account
+     */
     @EJB
     private LoginCheckerLocal loginChecker;
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,6 +62,9 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    /*
+    *   Method which is called to set the error parametres later displayed to client.
+     */
     private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
         request.setAttribute("error", error);
         request.setAttribute("page", "login.jsp");

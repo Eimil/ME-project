@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
+/*
+*  The servlet acting as a controller for the purpose of the payment of an order
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -16,70 +14,59 @@ import javax.servlet.http.HttpServletResponse;
 import logics.CartListerLocal;
 import logics.ProductListerLocal;
 
-
 /**
  *
  * @author Magnus Kanfjäll
  */
 public class CheckoutController extends HttpServlet {
 
+    /*
+    *   The reference to the EJB used to list the avaliable products
+     */
     @EJB
     private ProductListerLocal productLister;
 
+    /*
+    *   The reference to the EJB used to list the items in the cart
+     */
     @EJB
     private CartListerLocal cartLister;
 
- 
-
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          String userID = null;
+        String userID = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("mePizzaUser")) {
                     userID = cookie.getValue();
+                    cookie.setMaxAge(15 * 60);
+                    response.addCookie(cookie);
                 }
             }
         }
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-            
-            
+
             String cart = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
-            
-      
+
             request.setAttribute("cart", cart);
-            request.setAttribute("infobox", "<h3>Inloggad som ID:"+userID+"</h3>");
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         }
     }
-      
- 
+
+    /*
+    *   Method which handles the POST request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-    }
 
-     private void logoutUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Cookie loginCookie = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaUser")) {
-                    loginCookie = cookie;
-                    break;
-                }
-            }
-        }
-        if (loginCookie != null) {
-            loginCookie.setMaxAge(0);
-            response.addCookie(loginCookie);
-        }
-        response.sendRedirect("login.jsp");
     }
 }
-

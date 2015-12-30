@@ -1,5 +1,9 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind retrieving passwords.
+ */
+
 import hibernate.HibernateUtil;
 import hibernate.User;
 import java.security.MessageDigest;
@@ -23,6 +27,9 @@ import javax.xml.bind.DatatypeConverter;
 @Stateless
 public class PasswordRetrieval implements PasswordRetrievalLocal {
 
+    /*
+    *   Method which is called to generate a random String.
+     */
     @Override
     public String generateRandomString(String text, int length) {
         Random random = new Random();
@@ -33,6 +40,9 @@ public class PasswordRetrieval implements PasswordRetrievalLocal {
         return sb.toString();
     }
 
+    /*
+    *   Method which is called to send a new password by mail to an address.
+     */
     @Override
     public boolean sendMailToUser(String emailaddress, String generatedPassword) {
         try {
@@ -61,6 +71,9 @@ public class PasswordRetrieval implements PasswordRetrievalLocal {
         return false;
     }
 
+    /*
+    *   Method which is called to hash a selected String.
+     */
     @Override
     public String hashPassword(String password) {
         byte[] passwordDigested = null;
@@ -74,6 +87,9 @@ public class PasswordRetrieval implements PasswordRetrievalLocal {
         return DatatypeConverter.printHexBinary(passwordDigested);
     }
 
+    /*
+    *   Method which is called to set a new password.
+     */
     @Override
     public boolean setNewPassword(String newPassword, String email) {
         try {

@@ -1,5 +1,9 @@
 package logics;
 
+/*
+ * Local interface for the LoginChecker bean.
+ */
+
 import javax.ejb.Local;
 
 /**

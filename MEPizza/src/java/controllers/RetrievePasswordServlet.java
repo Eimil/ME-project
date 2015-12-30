@@ -1,5 +1,9 @@
 package controllers;
 
+/*
+*  The servlet acting as a controller for the purpose of retrieving password
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,16 +20,25 @@ public class RetrievePasswordServlet extends HttpServlet {
 
     private final int length = 20;
 
+    /*
+    *   The reference to the EJB used to retrieve a new password for an account
+     */
     @EJB
     private PasswordRetrievalLocal passwordRetrieval;
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("forgotpassword.jsp").forward(request, response);
-            
+
     }
 
+    /*
+    *   Method which handles the POST request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,6 +65,9 @@ public class RetrievePasswordServlet extends HttpServlet {
         }
     }
 
+    /*
+    *   Method which is called to set the error parametres later displayed to client.
+     */
     private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
         request.setAttribute("error", error);
         request.setAttribute("page", "forgotpassword.jsp");

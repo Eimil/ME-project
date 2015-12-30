@@ -1,5 +1,9 @@
 package controllers;
 
+/*
+*  The servlet acting as a controller for the purpose of creating accounts
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,15 +18,24 @@ import logics.AccountCreatorLocal;
  */
 public class CreateAccountServlet extends HttpServlet {
 
+    /*
+    *   The reference to the EJB used to create a new account
+     */
     @EJB
     private AccountCreatorLocal accountCreator;
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("createaccount.jsp").forward(request, response);
     }
 
+    /*
+    *   Method which handles the POST request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,10 +78,15 @@ public class CreateAccountServlet extends HttpServlet {
                 request = setError(request, "Kunde inte skapa konto", "Lösenorden matchar inte");
                 request.getRequestDispatcher("createaccount.jsp").forward(request, response);
             }
+        } else {
+            request = setError(request, "Kunde inte skapa konto", "Fattas input");
+            request.getRequestDispatcher("createaccount.jsp").forward(request, response);
         }
     }
 
-    
+    /*
+    *   Method which is called to set the error parametres later displayed to client.
+     */
     private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
         request.setAttribute("error", error);
         request.setAttribute("page", "createaccount.jsp");

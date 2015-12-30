@@ -1,5 +1,9 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind sending confirmation mail.
+ */
+
 import java.util.Properties;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -18,6 +22,9 @@ import javax.mail.internet.MimeMultipart;
 @Stateless
 public class ConfirmationSender implements ConfirmationSenderLocal {
 
+    /*
+    *   Method which is called to send a confirmation mail to an address.
+     */
     @Override
     public boolean sendConfirmation(String emailaddress, String[] data) {
         try {

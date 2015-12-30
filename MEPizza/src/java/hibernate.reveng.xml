@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="mepizza"/>
-  <table-filter match-name="orderlog"/>
-  <table-filter match-name="orderlist"/>
-  <table-filter match-name="cart"/>
-  <table-filter match-name="restaurant"/>
-  <table-filter match-name="product"/>
-  <table-filter match-name="user"/>
-  <table-filter match-name="card"/>
-  <table-filter match-name="order"/>
+    <schema-selection match-catalog="mepizza"/>
+    <table-filter match-name="orderlog"/>
+    <table-filter match-name="orderlist"/>
+    <table-filter match-name="cart"/>
+    <table-filter match-name="restaurant"/>
+    <table-filter match-name="product"/>
+    <table-filter match-name="user"/>
+    <table-filter match-name="card"/>
+    <table-filter match-name="order"/>
 </hibernate-reverse-engineering>

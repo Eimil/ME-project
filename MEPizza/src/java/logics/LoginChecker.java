@@ -1,5 +1,9 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind logging an account in.
+ */
+
 import hibernate.HibernateUtil;
 import hibernate.User;
 import java.security.MessageDigest;
@@ -14,11 +18,14 @@ import org.hibernate.Session;
 @Stateless
 public class LoginChecker implements LoginCheckerLocal {
 
+    /*
+    *   Method which is called to hash a selected String.
+     */
     @Override
     public String hashString(String param) {
         byte[] stringDigested = null;
         try {
-            MessageDigest md=  MessageDigest.getInstance("SHA-256");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(param.getBytes("UTF-8"));
             stringDigested = md.digest();
         } catch (Exception ex) {
@@ -27,6 +34,9 @@ public class LoginChecker implements LoginCheckerLocal {
         return DatatypeConverter.printHexBinary(stringDigested);
     }
 
+    /*
+    *   Method which is called to check if the credentials is valid.
+     */
     @Override
     public String checkIfValid(String username, String password) {
         System.out.println(username);

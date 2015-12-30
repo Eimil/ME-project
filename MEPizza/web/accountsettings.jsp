@@ -17,13 +17,12 @@
          <div id="box">
             <div id="Logga">
                <div id="infobox">
-                  <h3>Utloggad</h3>
+                  ${infobox}
                </div>
             </div>
          </div>
          <div id="meny">
-            <li><a href='login.jsp'>Logga in</a></li>
-            <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
+            <li><a href='ProductController'>Handla</a></li>
             <li><a href='LogoutController'>Logga ut</a></li>
          </div>
          <div id="main_box">
@@ -41,11 +40,11 @@
                     </tr>
                      <tr>
                         <td>Adress : </td>
-                        <td> <input type="text" name="address" placeholder='${address}'  value=""/></td>
+                        <td> <input type="text" name="address" placeholder="${address}"  value=""/></td>
                     </tr>
                      <tr>
                         <td>Postnummer : </td>
-                        <td> <input type="text" name="zipcode" placeholder='${zipcode}'  value=""/></td>
+                        <td> <input type="text" name="zipcode" placeholder="${zipcode}"  value=""/></td>
                     </tr>
                      <tr>
                         <td>Lösenord : </td>
@@ -61,11 +60,11 @@
                     </tr>
                       <tr>
                         <td>Email : </td>
-                        <td> <input type="email" name="email" placeholder='${email}'  value=""/></td>
+                        <td> <input type="email" name="email" placeholder="${email}"  value=""/></td>
                     </tr>
                       <tr>
                         <td>Telefonnummer : </td>
-                        <td> <input type="tel" name="phone" placeholder='${phone}' value=""/></td>
+                        <td> <input type="tel" name="phone" placeholder="${phone}" value=""/></td>
                     </tr>
                 </table>
                 

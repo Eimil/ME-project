@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logics;
+
+/*
+ * Local interface for the ProductLister bean.
+ */
 
 import javax.ejb.Local;
 
 /**
  *
- * @author magnu_000
+ * @author Magnus Kanfjäll
  */
 @Local
 public interface ProductListerLocal {
