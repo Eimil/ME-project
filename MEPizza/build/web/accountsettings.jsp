@@ -30,17 +30,22 @@
             <form method="post" action="SettingsServlet">
                 
                 <table cellspacing="0" rwospan="0" border="0">
+                     <thead>
+                        <th colspan="4">Uppgifter</th>
+                        
+
+                    </thead>
                     <tr>
                         <td>Fullständigt namn :</td>
-                        <td><input type="text" name="fullname" placeholder=""  value="${fullname}"/></td>
+                        <td><input type="text" name="fullname" placeholder="${fullname}"  value=""/></td>
                     </tr>
                      <tr>
                         <td>Adress : </td>
-                        <td> <input type="text" name="address" placeholder=${address}  value=""/></td>
+                        <td> <input type="text" name="address" placeholder='${address}'  value=""/></td>
                     </tr>
                      <tr>
                         <td>Postnummer : </td>
-                        <td> <input type="text" name="zipcode" placeholder=${zipcode}  value=""/></td>
+                        <td> <input type="text" name="zipcode" placeholder='${zipcode}'  value=""/></td>
                     </tr>
                      <tr>
                         <td>Lösenord : </td>
@@ -56,11 +61,11 @@
                     </tr>
                       <tr>
                         <td>Email : </td>
-                        <td> <input type="text" name="email" placeholder=${email}  value=""/></td>
+                        <td> <input type="email" name="email" placeholder='${email}'  value=""/></td>
                     </tr>
                       <tr>
                         <td>Telefonnummer : </td>
-                        <td><input type="text" name="phone" placeholder=${phone} value=""/></td>
+                        <td> <input type="tel" name="phone" placeholder='${phone}' value=""/></td>
                     </tr>
                 </table>
                 

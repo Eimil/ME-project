@@ -23,7 +23,7 @@ public class ProductLister implements ProductListerLocal {
       
         Session session = null;
         List<Product> products =null;
-        String retuner=null;
+        String retuner="";;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();

@@ -24,18 +24,13 @@ public class CartLister implements CartListerLocal {
      
         Session session = null;
         List<Cart> theCart =null;
-        String retuner=null;
+        String retuner="";
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
                    
             theCart =(List<Cart>) session.createQuery("select cart from Cart cart where cart.userId = :userId").setParameter("userId", userId).list();
             session.getTransaction().commit();
-            
-          
-       
-        
-        
         int total=0;
         
         for(int i=0; i<theCart.size(); i++){
