@@ -24,6 +24,7 @@
          </div>
          <div id="meny">
             <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
+             <li><a href='CheckoutController'>Gå till kassa</a></li>
             <li><a href='LogoutController'>Logga ut</a></li>
          </div>
          <div id="main_box">

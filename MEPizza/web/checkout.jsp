@@ -24,6 +24,7 @@
                         </div>
                         <div id="meny">
                             <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
+                             <li><a href='ProductController'>Handla</a></li>
                             <li><a href='LogoutController'>Logga ut</a></li>
                         </div>
                         <div id="main_box">
@@ -72,6 +73,7 @@
                                 <tr>
                                     <td>Pizzeria :</td>
                                     <td><select name='resturant' >
+                                            ${dropdown}
                                             
                                         </select> </td>
                                 </tr>

@@ -7,6 +7,9 @@ package logics;
 
 import hibernate.Cart;
 import hibernate.HibernateUtil;
+import hibernate.Product;
+import hibernate.Restaurant;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import org.hibernate.Session;
@@ -48,6 +51,30 @@ public void addToCart(int productId,int userId){
 public void removeFromCart(int productId,int userId){
     //Not implmented
     
+}
+
+@Override
+public String resturantDropdownHtml(){
+     Session session = null;
+        List<Restaurant> restaurant = null;
+        String returner = "";
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            restaurant = (List<Restaurant>) session.createQuery("from Restaurant").list();
+            session.getTransaction().commit();
+            session.close(); // kanske skall kommenteras bort
+        } catch (Exception ex) {
+            System.out.println("Exception in finding account : " + ex);
+        }
+
+        for (int i = 0; i < restaurant.size(); i++) {
+            Restaurant pr = restaurant.get(i);
+           returner+=" <option value='"+pr.getId()+"'>"+pr.getName()+"</option>";
+        }
+
+        return returner;
+  
 }
 
 }
