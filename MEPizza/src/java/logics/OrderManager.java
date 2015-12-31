@@ -4,7 +4,6 @@ import hibernate.Cart;
 import hibernate.HibernateUtil;
 import hibernate.Order;
 import hibernate.Orderlist;
-import hibernate.Product;
 import java.util.List;
 import javax.ejb.Stateless;
 import org.hibernate.Session;
@@ -19,9 +18,10 @@ public class OrderManager implements OrderManagerLocal {
     @Override
     public void createOrder(String[] orderValues) {
         //System.out.println("UserID "+orderValues[7]+"Notes "+orderValues[0]+"Store "+orderValues[6]);
-       
+
         Session session = null;
         int orderId = -1;
+        // Kolla om kunden har pengar
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -46,7 +46,7 @@ public class OrderManager implements OrderManagerLocal {
 
     private void addProductsToOrder(int userId, int orderId) {
         System.out.println("addProductsToOrder() is called");
-        
+
         Session session = null;
         List<Cart> theCart = null;
 
@@ -56,32 +56,28 @@ public class OrderManager implements OrderManagerLocal {
 
             theCart = (List<Cart>) session.createQuery("select cart from Cart cart where cart.userId = :userId").setParameter("userId", userId).list();
             session.getTransaction().commit();
-            int total = 0;
 
             for (int i = 0; i < theCart.size(); i++) {
-                Cart pr = theCart.get(i);
-                
-                
-                //Lägg till i ordern
-                
-                System.out.println("OderID"+orderId+"Prodcut"+pr.getProductId());
+                Cart cart = theCart.get(i);
+                System.out.println("OderID" + orderId + "Prodcut" + cart.getProductId());
                 session.beginTransaction();
                 Orderlist orderlist = new Orderlist();
                 orderlist.setOrderId(orderId);
-                orderlist.setProductId(pr.getProductId());
+                orderlist.setProductId(cart.getProductId());
                 session.save(orderlist);
                 session.getTransaction().commit();
 
-                //Ta bort
+                String hql = "delete from Cart where id= :id";
+                session.createQuery(hql).setParameter("id", cart.getId()).executeUpdate();
+                // Maila kunden om allt gick som det skulle
             }
-  
 
             session.close();
 
         } catch (Exception ex) {
             System.out.println("Exception in finding account : " + ex);
         }
-   
+
     }
 
 }
