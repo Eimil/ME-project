@@ -21,6 +21,9 @@ import logics.ProductListerLocal;
  */
 public class CheckoutController extends HttpServlet {
 
+    private String[] formInfo = new String[]{"notes", "cardOwner", "csv", "expireMM", "expireYY", "cardnumber"};
+    private String[] readInfo = new String[6];
+
     @EJB
     private CartHandlerLocal cartHandler;
 
@@ -72,6 +75,31 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String userID = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("mePizzaUser")) {
+                    userID = cookie.getValue();
+                    cookie.setMaxAge(15 * 60);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        if (userID == null) {
+            response.sendRedirect("login.jsp");
+        } else {
+            for (int i = 0; i < formInfo.length; i++) {
+                if (request.getParameter(formInfo[i]) != null && formInfo[i].length() > 3) {
+                    readInfo[i] = request.getParameter(formInfo[i]);
+                } else {
+                    readInfo[i] = null;
+                }
+            }    
+            //withdraw --> params (kortnummer,utgångsdatum,csv,pris)
+            // transaction till satt bankkonto för pizzeria (webservice)
+            // vid lyckad transaktion så skickas ett mail ut till köparen att det har genomförts
+            response.sendRedirect("ProductController");
+        }
     }
 }

@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="ME-project">
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/web/checkout.jsp</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/src/java/logics/CartHandlerLocal.java</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/src/java/logics/CartHandler.java</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/web/store.jsp</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/CheckoutController.java</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/ProductController.java</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/src/java/logics/AccountCreator.java</file>
-            <file>file:/C:/Users/magnu_000/Documents/GitHub/ME-project/MEPizza/src/java/logics/ProductLister.java</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/web/store.jsp</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/CheckoutController.java</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/ProductController.java</file>
         </group>
     </open-files>
 </project-private>

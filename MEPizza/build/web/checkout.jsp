@@ -79,11 +79,11 @@
                                 </tr>
                                 <tr>
                                     <td>Anteckningar : </td>
-                                    <td> <textarea rows="4" cols="50" placeholder="${address}"></textarea></td>
+                                    <td> <textarea rows="4" name="notes" cols="50" placeholder="${address}"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td>Kortnummer : </td>
-                                    <td> <input type="text" name="zipcode" placeholder='xxxx xxxx xxxx xxxx'  value=""/></td>
+                                    <td> <input type="text" name="cardnumber" placeholder='xxxx xxxx xxxx xxxx'  value="" minlength="19" maxlength="19"/></td>
                                 </tr>
                                 <tr>
                                     <td>Utgång : </td>
@@ -111,11 +111,11 @@
                                 </tr>
                                 <tr>
                                     <td>CSV : </td>
-                                    <td> <input type="password" name="passwordNew" placeholder='xxx'  value=""/></td>
+                                    <td> <input type="password" name="csv" placeholder='xxx'  value="" maxlength="3"/></td>
                                 </tr>
                                 <tr>
                                     <td>Kortägare : </td>
-                                    <td> <input type="text" name="passwordNew2" placeholder='xxxx xxxx'  value=""/></td>
+                                    <td> <input type="text" name="cardOwner" placeholder='xxxx xxxx'  value=""/></td>
 
                             </table>
                                  <input type="submit" name="changeButton" value="Beställ" />

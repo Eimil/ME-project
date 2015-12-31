@@ -36,31 +36,31 @@
                     </thead>
                     <tr>
                         <td>Fullständigt namn :</td>
-                        <td><input type="text" name="fullname" placeholder="${fullname}"  value=""/></td>
+                        <td><input type="text" name="fullname" placeholder="${fullname}" value=""/></td>
                     </tr>
                      <tr>
                         <td>Adress : </td>
-                        <td> <input type="text" name="address" placeholder="${address}"  value=""/></td>
+                        <td> <input type="text" name="address" placeholder="${address}" value=""/></td>
                     </tr>
                      <tr>
                         <td>Postnummer : </td>
-                        <td> <input type="text" name="zipcode" placeholder="${zipcode}"  value=""/></td>
+                        <td> <input type="text" name="zipcode" placeholder="${zipcode}" maxlength="5"  value=""/></td>
                     </tr>
                      <tr>
                         <td>Lösenord : </td>
-                        <td> <input type="password" name="password" placeholder='Gammalt lösenord'  value=""/></td>
+                        <td> <input type="password" name="password" placeholder='Gammalt lösenord' value=""/></td>
                     </tr>
                      <tr>
                         <td>Nytt lösenord (1) : </td>
-                        <td> <input type="password" name="passwordNew" placeholder='Nytt lösenord'  value=""/></td>
+                        <td> <input type="password" name="passwordNew" placeholder='Nytt lösenord' minlength="5" value=""/></td>
                     </tr>
                      <tr>
                         <td>Nytt Lösenord (2) : </td>
-                        <td> <input type="password" name="passwordNew2" placeholder='Nytt lösenord igen'  value=""/></td>
+                        <td> <input type="password" name="passwordNew2" placeholder='Nytt lösenord igen' minlength="5" value=""/></td>
                     </tr>
                       <tr>
                         <td>Email : </td>
-                        <td> <input type="email" name="email" placeholder="${email}"  value=""/></td>
+                        <td> <input type="email" name="email" placeholder="${email}" value=""/></td>
                     </tr>
                       <tr>
                         <td>Telefonnummer : </td>

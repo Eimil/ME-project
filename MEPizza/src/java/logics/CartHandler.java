@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logics;
 
 import hibernate.Cart;
 import hibernate.HibernateUtil;
-import hibernate.Product;
 import hibernate.Restaurant;
 import java.util.List;
 
@@ -63,7 +57,7 @@ public String resturantDropdownHtml(){
             session.beginTransaction();
             restaurant = (List<Restaurant>) session.createQuery("from Restaurant").list();
             session.getTransaction().commit();
-            session.close(); // kanske skall kommenteras bort
+            session.close();
         } catch (Exception ex) {
             System.out.println("Exception in finding account : " + ex);
         }

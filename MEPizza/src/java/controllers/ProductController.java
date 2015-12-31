@@ -73,9 +73,6 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
         //Cookie controll
         String userID = null;
         Cookie[] cookies = request.getCookies();
@@ -92,7 +89,6 @@ public class ProductController extends HttpServlet {
         //Add to cart
         int id=Integer.parseInt(request.getParameter("id"));
         cartHandler.addToCart(id, Integer.parseInt(userID));
-        
         
         if (userID == null) {
             response.sendRedirect("login.jsp");

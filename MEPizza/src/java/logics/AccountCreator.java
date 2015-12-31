@@ -42,6 +42,7 @@ public class AccountCreator implements AccountCreatorLocal {
     @Override
     public boolean createAccount(String[] accountParams) {
         Session session = null;
+        boolean success = false;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -57,8 +58,7 @@ public class AccountCreator implements AccountCreatorLocal {
             user.setRole("user");
             session.save(user);
             session.getTransaction().commit();
-            session.close(); // kanske skall kommenteras bort
-            return true;
+            success = true;
         } catch (Exception ex) {
             System.out.println("Exception in creating account : " + ex);
         }
@@ -66,7 +66,7 @@ public class AccountCreator implements AccountCreatorLocal {
             session.clear();
             session.close();
         }
-        return false;
+        return success;
     }
 
     /*

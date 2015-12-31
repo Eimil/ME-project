@@ -29,13 +29,13 @@
                <br>
                <input type="text" name="fullname" placeholder='Fullständigt namn'  value="" required/>
                <br>
-               <input type="text" name="address" placeholder='Adress'  value="" required/>
+               <input type="text" name="address" placeholder='Adress' value="" required/>
                <br>
-               <input type="text" name="zipcode" placeholder='Postnummer'  value="" required/>
+               <input type="text" name="zipcode" placeholder='Postnummer'  value="" maxlength="5" required/>
                <br>
-               <input type="password" name="password1" placeholder='Lösenord'  value="" required/>
+               <input type="password" name="password1" placeholder='Lösenord (minst 5 tecken)'  value="" minlength=5 required/>
                <br>
-               <input type="password" name="password2" placeholder='Lösenord igen'  value="" required/>
+               <input type="password" name="password2" placeholder='Lösenord igen'  value="" minlength=5 required/>
                <br>
                <input type="text" name="email" placeholder='Email adress'  value="" required/>
                <br>
