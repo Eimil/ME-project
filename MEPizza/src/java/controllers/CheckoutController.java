@@ -100,6 +100,7 @@ public class CheckoutController extends HttpServlet {
                     readInfo[i] = null;
                 }
             }
+            readInfo[7]=""+userID;
             orderManager.createOrder(readInfo);
             //withdraw --> params (kortnummer,utgångsdatum,csv,pris)
             // transaction till satt bankkonto för pizzeria (webservice)

@@ -28,6 +28,7 @@
                             <li><a href='LogoutController'>Logga ut</a></li>
                         </div>
                         <div id="main_box">
+                            <form method="post" action="">
                             <table class="customer" rowspan="0" border="0" cellspacing="0">
                                 <thead>
                                     <th colspan="4">Kunduppgifter</th>
@@ -72,7 +73,7 @@
                                 </thead>
                                 <tr>
                                     <td>Pizzeria :</td>
-                                    <td><select name='resturant' >
+                                    <td><select name='restaurant' >
                                             ${dropdown}
                                             
                                         </select> </td>
@@ -119,6 +120,7 @@
 
                             </table>
                                  <input type="submit" name="changeButton" value="Beställ" />
+                            </form>
                         </div>
                         <div id="fotter">
                             <p id="nere">Utvecklad av Magnus Kanfjäll & Emil Ejder</p>
