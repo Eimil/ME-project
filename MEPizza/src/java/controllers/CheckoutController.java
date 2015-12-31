@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import logics.CartHandlerLocal;
 import logics.CartListerLocal;
+import logics.OrderManagerLocal;
 import logics.ProductListerLocal;
 
 /**
@@ -21,8 +22,11 @@ import logics.ProductListerLocal;
  */
 public class CheckoutController extends HttpServlet {
 
-    private String[] formInfo = new String[]{"notes", "cardOwner", "csv", "expireMM", "expireYY", "cardnumber"};
-    private String[] readInfo = new String[6];
+    @EJB
+    private OrderManagerLocal orderManager;
+
+    private String[] formInfo = new String[]{"notes", "cardOwner", "csv", "expireMM", "expireYY", "cardnumber","restaurant"};
+    private String[] readInfo = new String[8];
 
     @EJB
     private CartHandlerLocal cartHandler;
@@ -95,7 +99,8 @@ public class CheckoutController extends HttpServlet {
                 } else {
                     readInfo[i] = null;
                 }
-            }    
+            }
+            orderManager.createOrder(readInfo);
             //withdraw --> params (kortnummer,utgångsdatum,csv,pris)
             // transaction till satt bankkonto för pizzeria (webservice)
             // vid lyckad transaktion så skickas ett mail ut till köparen att det har genomförts
