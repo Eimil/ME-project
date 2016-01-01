@@ -106,7 +106,6 @@ public class CheckoutController extends HttpServlet {
             readInfo[8] = "" + userID;
             String result = orderManager.createOrder(readInfo);
             if (result.equalsIgnoreCase("CREATED & MAILED")) {
-                System.out.println("EVERYTHING WORKS");
                 response.sendRedirect("PurchaseHistoryController");
             } else {
                 // you did bad son

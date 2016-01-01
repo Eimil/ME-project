@@ -46,13 +46,13 @@ public class OrderManager implements OrderManagerLocal {
                 session.close();
             }
             if (orderId != -1) {
-                if(addProductsToOrder(Integer.parseInt(orderValues[8]), orderId).equalsIgnoreCase("Mail was sent"))
-                return "CREATED & MAILED";
-            } else if (addProductsToOrder(Integer.parseInt(orderValues[8]), orderId).equalsIgnoreCase("Mail was not sent")) {
-                return "Couldn't send mail to user";
-            } else {
-                return "Couldn't add products to order";
+                if (addProductsToOrder(Integer.parseInt(orderValues[8]), orderId).equalsIgnoreCase("Mail was sent")) {
+                    return "CREATED & MAILED";
+                } else {
+                    return "Couldn't send mail to user";
+                }
             }
+            return "Couldn't add products to order";
         }
         return "Could not make order, insufficent funds";
     }

@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="ME-project">
-            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/PurchaseHistoryController.java</file>
             <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/CheckoutController.java</file>
             <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/logics/OrderManager.java</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/MEPizza/src/java/controllers/ProductController.java</file>
         </group>
     </open-files>
 </project-private>

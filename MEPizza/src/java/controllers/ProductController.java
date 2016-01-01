@@ -86,7 +86,6 @@ public class ProductController extends HttpServlet {
                 }
             }
         }
-        
         //Add to cart
         int id=Integer.parseInt(request.getParameter("id"));
         cartHandler.addToCart(id, Integer.parseInt(userID));
