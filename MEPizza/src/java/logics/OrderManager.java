@@ -1,5 +1,8 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind handling orders.
+ */
 import hibernate.Cart;
 import hibernate.HibernateUtil;
 import hibernate.Order;
@@ -88,7 +91,7 @@ public class OrderManager implements OrderManagerLocal {
                 session.createQuery("delete from Cart where id= :id").setParameter("id", cart.getId()).executeUpdate();
             }
             session.close();
-            if (callWebServiceAboutMail(userId, "YOU ORDERED PIZZA", String.valueOf(orderId))) {
+            if (callWebServiceAboutMail(userId, String.valueOf(orderId))) {
                 return "Mail was sent";
             } else {
                 return "Mail was not sent";
@@ -99,7 +102,7 @@ public class OrderManager implements OrderManagerLocal {
         return "Error in adding products to order";
     }
 
-    private boolean callWebServiceAboutMail(int userId, String orderInfo, String orderNumber) {
+    private boolean callWebServiceAboutMail(int userId, String orderNumber) {
         Session session;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -110,6 +113,7 @@ public class OrderManager implements OrderManagerLocal {
             session.getTransaction().commit();
             session.close();
             if (user.getFullName() != null) {
+                String orderInfo = getContentForMail(orderNumber);
                 BankingWS port = service.getBankingWSPort();
                 return port.sendMailToAccount(user.getEmail(), orderInfo, orderNumber);
             } else {
@@ -119,6 +123,29 @@ public class OrderManager implements OrderManagerLocal {
             System.out.println("Error in callWebServiceAbout mail : " + ex);
         }
         return true;
+    }
+
+    private String getContentForMail(String orderNumber) {
+        Session session = null;
+        String mailContent = null;
+        try {
+            session.beginTransaction();
+            Order order = (Order) session.createQuery("select order from Order order where order.id = :id")
+                    .setParameter("id", Integer.parseInt(orderNumber))
+                    .uniqueResult();
+            session.getTransaction().commit();
+            session.close();
+            if (order.getId() != null) {
+                mailContent += "Ordernummer : " + orderNumber + "\n";
+                mailContent += "Kostnad :" + String.valueOf(order.getPrice()) + "\n";
+                mailContent += "Noteringar : " + order.getNotes() + "\n";
+                mailContent += "Tidpunkt : " + String.valueOf(order.getTime()) + "\n";
+            }
+            session.beginTransaction();
+        } catch (Exception ex) {
+            System.out.println("Couldn't find info for mail content " + ex);
+        }
+        return mailContent;
     }
 
 }

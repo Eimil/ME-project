@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-        <jsp-config>
+    <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <page-encoding>UTF-8</page-encoding>
@@ -8,35 +8,35 @@
     </jsp-config>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>controllers.LoginServlet</servlet-class>
+        <servlet-class>servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateAccountServlet</servlet-name>
-        <servlet-class>controllers.CreateAccountServlet</servlet-class>
+        <servlet-class>servlets.CreateAccountServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RetrievePasswordServlet</servlet-name>
-        <servlet-class>controllers.RetrievePasswordServlet</servlet-class>
+        <servlet-class>servlets.RetrievePasswordServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SettingsServlet</servlet-name>
-        <servlet-class>controllers.SettingsServlet</servlet-class>
+        <servlet-class>servlets.SettingsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductController</servlet-name>
-        <servlet-class>controllers.ProductController</servlet-class>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>servlets.ProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controllers.LogoutController</servlet-class>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckoutController</servlet-name>
-        <servlet-class>controllers.CheckoutController</servlet-class>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>servlets.CheckoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PurchaseHistoryController</servlet-name>
-        <servlet-class>controllers.PurchaseHistoryController</servlet-class>
+        <servlet-name>PurchaseHistoryServlet</servlet-name>
+        <servlet-class>servlets.PurchaseHistoryServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -55,20 +55,20 @@
         <url-pattern>/SettingsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductController</servlet-name>
-        <url-pattern>/ProductController</url-pattern>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/ProductServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogoutController</servlet-name>
-        <url-pattern>/LogoutController</url-pattern>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckoutController</servlet-name>
-        <url-pattern>/CheckoutController</url-pattern>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/CheckoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PurchaseHistoryController</servlet-name>
-        <url-pattern>/PurchaseHistoryController</url-pattern>
+        <servlet-name>PurchaseHistoryServlet</servlet-name>
+        <url-pattern>/PurchaseHistoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

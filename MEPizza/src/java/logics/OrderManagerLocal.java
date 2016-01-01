@@ -1,5 +1,9 @@
 package logics;
 
+/*
+ * Local interface for the OrderManager bean.
+ */
+
 import javax.ejb.Local;
 
 /**

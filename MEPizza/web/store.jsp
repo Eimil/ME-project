@@ -23,10 +23,9 @@
             </div>
          </div>
          <div id="meny">
-            <li><a href='SettingsServlet'>Ändra kontouppgifter</a></li>
-             <li><a href='CheckoutController'>Gå till kassa</a></li>
-             <li><a href='PurchaseHistoryController'>Historik</a></li>
-            <li><a href='LogoutController'>Logga ut</a></li>
+            <li><a href='ProductServlet'>Produkter</a></li> -
+            <li><a href='CheckoutServlet'>Kassa</a></li> -
+            <li><a href='PurchaseHistoryServlet'>Historik</a></li>
          </div>
          <div id="main_box">
                      

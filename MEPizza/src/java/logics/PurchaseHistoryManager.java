@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logics;
+
+/*
+* The Stateless Session Bean which performs the logics behind showing previous purchases.
+ */
 
 import hibernate.HibernateUtil;
 import hibernate.Order;
@@ -45,7 +44,6 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
                         + "                <th>OrderId</th>\n"
                         + "                <th>Datum</th>\n"
                         + "                <th>Pizzeria</th>\n"
-      
                         + "                <th>Anteckningar</th>\n"
                         + "    \n"
                         + "            </thead>\n"
@@ -53,7 +51,6 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
                         + "                <td>" + pr.getId() + "</td>\n"
                         + "                <td>" + pr.getTime() + "</td>\n"
                         + "                <td>" + restaurant.getName() + "</td>\n"
-                   
                         + "                <td class=\"notes\">" + pr.getNotes() + "</td>\n"
                         + "                \n"
                         + "            \n"
@@ -62,7 +59,7 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
                         + "              <tr class='header'>\n"
                         + "                  <td colspan=\"5\">Produkter</td>\n"
                         + "            </tr>\n"
-                        +getProductsInOrderAsHtmlRow(pr.getId())
+                        + getProductsInOrderAsHtmlRow(pr.getId())
                         + "            <tr class=\"total\">\n"
                         + "                  <td colspan=\"5\">Totalt " + pr.getPrice() + "kr</td>\n"
                         + "            </tr>\n"
@@ -80,40 +77,34 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
     }
 
     private String getProductsInOrderAsHtmlRow(int OrderId) {
-        System.out.println("OrderIDD:"+OrderId);
+        System.out.println("OrderIDD:" + OrderId);
         Session session = null;
         List<Orderlist> orderlist = null;
         String returner = "";
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            
-            orderlist = (List<Orderlist>) session.createQuery("from Orderlist where OrderId='"+OrderId+"'").list();
+            orderlist = (List<Orderlist>) session.createQuery("from Orderlist where OrderId='" + OrderId + "'").list();
             session.getTransaction().commit();
-        
-       
 
-        for (int i = 0; i < orderlist.size(); i++) {
-            Orderlist orderRow = orderlist.get(i);
-            
-            session.beginTransaction();
-            Product Product = (Product) session.createQuery("select product from Product product where product.id = :id")
-                    .setParameter("id", orderRow.getProductId())
-                    .uniqueResult();
-            session.getTransaction().commit();
-            
-            
-              returner+="             <tr>\n"
-                    + "                <td>"+Product.getName()+"</td>\n"
-                    + "                <td>"+Product.getDescription()+"</td>\n"
-                    + "                <td></td>\n"
-                    + "                <td>"+Product.getPrice()+"</td>\n"
-                     + "                <td colspan='3'></td>\n"
+            for (int i = 0; i < orderlist.size(); i++) {
+                Orderlist orderRow = orderlist.get(i);
 
-                    + "            </tr>\n";
-        }
+                session.beginTransaction();
+                Product Product = (Product) session.createQuery("select product from Product product where product.id = :id")
+                        .setParameter("id", orderRow.getProductId())
+                        .uniqueResult();
+                session.getTransaction().commit();
+                returner += "             <tr>\n"
+                        + "                <td>" + Product.getName() + "</td>\n"
+                        + "                <td>" + Product.getDescription() + "</td>\n"
+                        + "                <td></td>\n"
+                        + "                <td>" + Product.getPrice() + "</td>\n"
+                        + "                <td colspan='3'></td>\n"
+                        + "            </tr>\n";
+            }
 
-         } catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Exception in finding account : " + ex);
         }
         return returner;
