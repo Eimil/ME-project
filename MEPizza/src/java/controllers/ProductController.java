@@ -58,10 +58,10 @@ public class ProductController extends HttpServlet {
         } else {
 
             String products = productLister.getProductsAsHtmlRows();
-            String cart = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            String [] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
 
             request.setAttribute("products", products);
-            request.setAttribute("cart", cart);
+            request.setAttribute("cart", cartResult[0]);
             request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
             request.getRequestDispatcher("store.jsp").forward(request, response);
         }
@@ -73,6 +73,7 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         //Cookie controll
         String userID = null;
         Cookie[] cookies = request.getCookies();
@@ -95,10 +96,10 @@ public class ProductController extends HttpServlet {
         } else {
 
             String products = productLister.getProductsAsHtmlRows();
-            String cart = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            String [] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
 
             request.setAttribute("products", products);
-            request.setAttribute("cart", cart);
+            request.setAttribute("cart", cartResult[0]);
             request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
             request.getRequestDispatcher("store.jsp").forward(request, response);
         }

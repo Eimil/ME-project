@@ -28,17 +28,13 @@ public void addToCart(int productId,int userId){
             cart.setUserId(userId);
             session.save(cart);
             session.getTransaction().commit();
-            
-       
         } catch (Exception ex) {
             System.out.println("Exception in adding prdukt : " + ex);
         }
         if (session != null) {
             session.clear();
             session.close();
-        }
-       
-    
+        } 
 }
  
 @Override

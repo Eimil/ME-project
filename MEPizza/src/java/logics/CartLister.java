@@ -22,18 +22,18 @@ public class CartLister implements CartListerLocal {
     *   Method which is called to list items in the shopping cart.
      */
     @Override
-    public String cartContensAsHtmlRow(int userId) {
+    public String [] cartContensAsHtmlRow(int userId) {
 
         Session session = null;
         List<Cart> theCart = null;
         String returner = "";
+        int total = 0;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
 
             theCart = (List<Cart>) session.createQuery("select cart from Cart cart where cart.userId = :userId").setParameter("userId", userId).list();
             session.getTransaction().commit();
-            int total = 0;
 
             for (int i = 0; i < theCart.size(); i++) {
                 Cart pr = theCart.get(i);
@@ -62,6 +62,10 @@ public class CartLister implements CartListerLocal {
         } catch (Exception ex) {
             System.out.println("Exception in finding account : " + ex);
         }
-        return returner;
+        String priceAsString = String.valueOf(total);
+        String [] resultArray = new String [2];
+        resultArray [0] = returner;
+        resultArray [1] = priceAsString;
+        return resultArray;
     }
 }

@@ -49,10 +49,7 @@ public class LoginChecker implements LoginCheckerLocal {
                     .setParameter("username", username).setParameter("password", password)
                     .uniqueResult();
             session.getTransaction().commit();
-            System.out.println("THE USERS FULL NAME IS " + user.getFullName());
             if (user.getFullName() != null) {
-                System.out.println("Username is : " + user.getUserName());
-                System.out.println("Password is : " + user.getPassword());
                 return user.getId().toString();
             }
             session.close(); // kanske skall kommenteras bort

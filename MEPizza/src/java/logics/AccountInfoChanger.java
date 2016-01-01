@@ -49,27 +49,21 @@ public class AccountInfoChanger implements AccountInfoChangerLocal {
             session.beginTransaction();
             if (newInfo[0] != null && !newInfo[0].equalsIgnoreCase("")) {
                 user.setFullName(newInfo[0]);
-                System.out.println("The changed name is : " + newInfo[0]);
             }
             if (newInfo[1] != null && !newInfo[1].equalsIgnoreCase("")) {
                 user.setAddress(newInfo[1]);
-                System.out.println("The changed address is : " + newInfo[0]);
             }
             if (newInfo[2] != null && !newInfo[2].equalsIgnoreCase("")) {
                 user.setZipCode(newInfo[2]);
-                System.out.println("The changed zipcode is : " + newInfo[0]);
             }
             if (newInfo[3] != null && !newInfo[3].equalsIgnoreCase("")) {
                 user.setPassword(hashString(newInfo[3]));
-                System.out.println("The changed password is : " + newInfo[0]);
             }
             if (newInfo[4] != null && !newInfo[4].equalsIgnoreCase("")) {
                 user.setEmail(newInfo[4]);
-                System.out.println("The changed email is : " + newInfo[0]);
             }
             if (newInfo[5] != null && !newInfo[5].equalsIgnoreCase("")) {
                 user.setPhone(newInfo[5]);
-                System.out.println("The changed phone is : " + newInfo[0]);
             }
             session.save(user);
             session.getTransaction().commit();

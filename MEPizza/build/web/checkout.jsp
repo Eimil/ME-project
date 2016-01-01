@@ -1,6 +1,5 @@
 <%-- 
-    Document   : store
-    Created on : 2015-dec-27, 19:42:22
+    Document   : checkout
     Author     : Magnus Kanfjäll
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,6 +28,7 @@
                         </div>
                         <div id="main_box">
                             <form method="post" action="">
+                            <input type="hidden" name="price" value="${price}" required>
                             <table class="customer" rowspan="0" border="0" cellspacing="0">
                                 <thead>
                                     <th colspan="4">Kunduppgifter</th>

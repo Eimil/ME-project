@@ -25,8 +25,8 @@ public class CheckoutController extends HttpServlet {
     @EJB
     private OrderManagerLocal orderManager;
 
-    private String[] formInfo = new String[]{"notes", "cardOwner", "csv", "expireMM", "expireYY", "cardnumber","restaurant"};
-    private String[] readInfo = new String[8];
+    private String[] formInfo = new String[]{"notes", "cardOwner", "csv", "expireMM", "expireYY", "cardnumber", "restaurant", "price"};
+    private String[] readInfo = new String[9];
 
     @EJB
     private CartHandlerLocal cartHandler;
@@ -64,9 +64,11 @@ public class CheckoutController extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
 
-            String cart = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            String[] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            int price = Integer.parseInt(cartResult[1]);
             String dropdown = cartHandler.resturantDropdownHtml();
-            request.setAttribute("cart", cart);
+            request.setAttribute("cart", cartResult[0]);
+            request.setAttribute("price", cartResult[1]);
             request.setAttribute("dropdown", dropdown);
             request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3>");
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
@@ -79,6 +81,7 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String userID = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -100,7 +103,7 @@ public class CheckoutController extends HttpServlet {
                     readInfo[i] = null;
                 }
             }
-            readInfo[7]=""+userID;
+            readInfo[8] = "" + userID;
             orderManager.createOrder(readInfo);
             //withdraw --> params (kortnummer,utgångsdatum,csv,pris)
             // transaction till satt bankkonto för pizzeria (webservice)
