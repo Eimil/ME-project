@@ -97,18 +97,28 @@ public class CheckoutController extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             for (int i = 0; i < formInfo.length; i++) {
-                if (request.getParameter(formInfo[i]) != null && formInfo[i].length() > 3) {
+                if (request.getParameter(formInfo[i]) != null && formInfo[i].length() > 2) {
                     readInfo[i] = request.getParameter(formInfo[i]);
                 } else {
                     readInfo[i] = null;
                 }
             }
             readInfo[8] = "" + userID;
-            orderManager.createOrder(readInfo);
-            //withdraw --> params (kortnummer,utgångsdatum,csv,pris)
-            // transaction till satt bankkonto för pizzeria (webservice)
-            // vid lyckad transaktion så skickas ett mail ut till köparen att det har genomförts
-            response.sendRedirect("ProductController");
+            String result = orderManager.createOrder(readInfo);
+            if (result.equalsIgnoreCase("CREATED & MAILED")) {
+                System.out.println("EVERYTHING WORKS");
+                response.sendRedirect("PurchaseHistoryController");
+            } else {
+                // you did bad son
+            }
+            
         }
+    }
+
+    private HttpServletRequest setError(HttpServletRequest request, String error, String reason) {
+        request.setAttribute("error", error);
+        request.setAttribute("page", "createaccount.jsp");
+        request.setAttribute("reason", reason);
+        return request;
     }
 }

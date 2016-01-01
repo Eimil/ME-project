@@ -39,8 +39,6 @@ public class LoginChecker implements LoginCheckerLocal {
      */
     @Override
     public String checkIfValid(String username, String password) {
-        System.out.println(username);
-        System.out.println(password);
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
