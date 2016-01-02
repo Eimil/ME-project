@@ -61,7 +61,7 @@
                                 </tr>
                                 <tr>
                                     <td>Kortnummer : </td>
-                                    <td> <input type="text" name="cardnumber" placeholder='xxxx xxxx xxxx xxxx'  value="" minlength="19" maxlength="19"/></td>
+                                    <td> <input type="text" name="cardnumber" placeholder='xxxx xxxx xxxx xxxx' value="" minlength="19" maxlength="19" required/></td>
                                 </tr>
                                 <tr>
                                     <td>Utgång : </td>
@@ -89,15 +89,16 @@
                                 </tr>
                                 <tr>
                                     <td>CSV : </td>
-                                    <td> <input type="password" name="csv" placeholder='xxx'  value="" maxlength="3"/></td>
+                                    <td> <input type="password" name="csv" placeholder='xxx'  value="" minlength=3 maxlength="3" required/></td>
                                 </tr>
                                 <tr>
                                     <td>Kortägare : </td>
-                                    <td> <input type="text" name="cardOwner" placeholder='xxxx xxxx'  value=""/></td>
+                                    <td> <input type="text" name="cardOwner" placeholder='xxxx xxxx' minlength=5 value="" required/></td>
 
                             </table>
                                  <input type="submit" name="changeButton" value="Beställ" />
                             </form>
+                            ${purchaseResult}
                         </div>
                         <div id="fotter">
                             <p id="nere">Utvecklad av Magnus Kanfjäll & Emil Ejder</p>

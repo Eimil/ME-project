@@ -63,7 +63,7 @@ public class SettingsServlet extends HttpServlet {
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutController'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
             userInfo = accountInfoChanger.loadUserInfo(userID);
             if (changeButton != null && changeButton.length() > 3) {
                 newUserInfo = processUserInput(request);
@@ -85,9 +85,23 @@ public class SettingsServlet extends HttpServlet {
                 if (!accountInfoChanger.changeUserInfo(composedUserInfo, userID).equalsIgnoreCase("good")) {
                     request = setError(request, "Kunde inte modifiera kontot", "Internt fel");
                 }
-                userInfo = accountInfoChanger.loadUserInfo(userID);
-                request.setAttribute("result", "Kontouppgifterna har ändrats!");
-                loadPage(request, response);
+                boolean isFieldsEmpty = false;
+                for (String newUserInfo1 : newUserInfo) {
+                    if (newUserInfo1 != null && newUserInfo1.length() >= 5) {
+                        isFieldsEmpty = false;
+                    } else {
+                        isFieldsEmpty = true;
+                    }
+                }
+                if (isFieldsEmpty) {
+                    userInfo = accountInfoChanger.loadUserInfo(userID);
+                    request.setAttribute("result", "Kontouppgifterna har ändrats!");
+                    loadPage(request, response);
+                } else {
+                    userInfo = accountInfoChanger.loadUserInfo(userID);
+                    request.setAttribute("result", "Inga fält ifyllda, ingen data ändrad.");
+                    loadPage(request, response);
+                }
             } else {
                 loadPage(request, response);
             }

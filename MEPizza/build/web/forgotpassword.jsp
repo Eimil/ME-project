@@ -25,7 +25,7 @@
          </div>
          <div id="main_box">
             <form method="post" action="RetrievePasswordServlet" >
-               <input type="text" name="email" placeholder='Email adress'  value="" required/>
+               <input type="text" name="email" placeholder='Email adress' minlength=5 value="" required/>
                <input type="submit" name="login" value="Begär nytt lösenord" />	
             </form>
               ${error}

@@ -25,21 +25,21 @@
          </div>
          <div id="main_box">
             <form method="post" action="CreateAccountServlet">
-               <input type="text" name="username" placeholder='Användarnamn'  value="" required/>
+               <input type="text" name="username" placeholder='Användarnamn' value="" minlength=5 required/>
                <br>
-               <input type="text" name="fullname" placeholder='Fullständigt namn'  value="" required/>
+               <input type="text" name="fullname" placeholder='Fullständigt namn' value="" minlength=5 required/>
                <br>
-               <input type="text" name="address" placeholder='Adress' value="" required/>
+               <input type="text" name="address" placeholder='Adress' value="" minlength=5 required/>
                <br>
-               <input type="text" name="zipcode" placeholder='Postnummer'  value="" maxlength="5" required/>
+               <input type="text" name="zipcode" placeholder='Postnummer'  value="" minlength=5 maxlength="5" required/>
                <br>
                <input type="password" name="password1" placeholder='Lösenord (minst 5 tecken)'  value="" minlength=5 required/>
                <br>
                <input type="password" name="password2" placeholder='Lösenord igen'  value="" minlength=5 required/>
                <br>
-               <input type="text" name="email" placeholder='Email adress'  value="" required/>
+               <input type="text" name="email" placeholder='Email adress'  value="" minlength=5 required/>
                <br>
-               <input type="text" name="phone" placeholder='Telefonnummer'  value="" required/>
+               <input type="text" name="phone" placeholder='Telefonnummer'  value="" minlength=5 required/>
                <br>
                <input type="submit" name="create" id ="create" value="Skapa konto" />
             </form>

@@ -5,6 +5,8 @@ package servlets;
 *   Reads the inputed parametres and calls the responsible bean to act.
  */
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -26,6 +28,7 @@ public class CheckoutServlet extends HttpServlet {
 
     private final String[] formInfo = new String[]{"notes", "cardOwner", "csv", "expireMM", "expireYY", "cardnumber", "restaurant", "price"};
     private String[] readInfo = new String[9];
+    private String[] cartResult;
 
     @EJB
     private CartHandlerLocal cartHandler;
@@ -56,16 +59,7 @@ public class CheckoutServlet extends HttpServlet {
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-
-            String[] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
-            String userInfo = cartLister.getUserInfo(Integer.parseInt(userID));
-            int price = Integer.parseInt(cartResult[1]);
-            String dropdown = cartHandler.resturantDropdownHtml();
-            request.setAttribute("userInfo", userInfo);
-            request.setAttribute("cart", cartResult[0]);
-            request.setAttribute("price", cartResult[1]);
-            request.setAttribute("dropdown", dropdown);
-            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutController'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
+            request = loadPageContent(request, response, userID);
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         }
     }
@@ -99,15 +93,33 @@ public class CheckoutServlet extends HttpServlet {
                 }
             }
             readInfo[8] = "" + userID;
-            String result = orderManager.createOrder(readInfo);
-            if (result.equalsIgnoreCase("CREATED & MAILED")) {
-                // Did work
-                response.sendRedirect("PurchaseHistoryServlet");
-            } else {
-                // Did not work
-                response.sendRedirect("CheckoutServlet");
+            if (cartResult[0].equals("<tr class='total'><td colspan='2'>Total:</td><td>0kr</td><tr>")) { // In case there is no products in cart
+                request = loadPageContent(request, response, userID);
+                request.setAttribute("purchaseResult", "Purchase failed, no items in cart");
+                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            } else { // If there is products in the cart.
+                String result = orderManager.createOrder(readInfo);
+                if (result.equalsIgnoreCase("CREATED & MAILED")) {
+                    response.sendRedirect("PurchaseHistoryServlet");
+                } else {
+                    request = loadPageContent(request, response, userID);
+                    request.setAttribute("purchaseResult", "Purchase failed, couldn't complete order/ send mail");
+                    request.getRequestDispatcher("checkout.jsp").forward(request, response);
+                }
             }
-
         }
+    }
+
+    public HttpServletRequest loadPageContent(HttpServletRequest request, HttpServletResponse response, String userID) {
+        cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+        String userInfo = cartLister.getUserInfo(Integer.parseInt(userID));
+        int price = Integer.parseInt(cartResult[1]);
+        String dropdown = cartHandler.resturantDropdownHtml();
+        request.setAttribute("userInfo", userInfo);
+        request.setAttribute("cart", cartResult[0]);
+        request.setAttribute("price", cartResult[1]);
+        request.setAttribute("dropdown", dropdown);
+        request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
+        return request;
     }
 }

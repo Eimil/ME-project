@@ -56,13 +56,11 @@ public class ProductServlet extends HttpServlet {
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-
             String products = productLister.getProductsAsHtmlRows();
             String [] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
-
             request.setAttribute("products", products);
             request.setAttribute("cart", cartResult[0]);
-            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutController'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
             request.getRequestDispatcher("store.jsp").forward(request, response);
         }
     }
@@ -93,10 +91,8 @@ public class ProductServlet extends HttpServlet {
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-
             String products = productLister.getProductsAsHtmlRows();
             String [] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
-
             request.setAttribute("products", products);
             request.setAttribute("cart", cartResult[0]);
             request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutController'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");

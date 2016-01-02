@@ -46,7 +46,7 @@ public class PurchaseHistoryServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             request.setAttribute("rows", purchaseHistoryManager.getPurchasesAsHtmlRows(Integer.parseInt(userID)));
-            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutController'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");;
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");;
             request.getRequestDispatcher("history.jsp").forward(request, response);
         }
 
