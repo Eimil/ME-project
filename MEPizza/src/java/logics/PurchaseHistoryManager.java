@@ -3,7 +3,6 @@ package logics;
 /*
 * The Stateless Session Bean which performs the logics behind showing previous purchases.
  */
-
 import hibernate.HibernateUtil;
 import hibernate.Order;
 import hibernate.Orderlist;
@@ -21,6 +20,9 @@ import org.hibernate.Session;
 @Stateless
 public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
 
+    /*
+    *   Method used to get the earlier made purchases listed in order history
+     */
     @Override
     public String getPurchasesAsHtmlRows(int userId) {
         Session session = null;
@@ -76,6 +78,9 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
 
     }
 
+    /*
+    *   Method used to get the products from earlier made purchases
+     */
     private String getProductsInOrderAsHtmlRow(int OrderId) {
         System.out.println("OrderIDD:" + OrderId);
         Session session = null;

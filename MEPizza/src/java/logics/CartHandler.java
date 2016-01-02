@@ -1,5 +1,10 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind adding items to cart.
+* Is also used to list the avaliable restaurants.
+ */
+
 import hibernate.Cart;
 import hibernate.HibernateUtil;
 import hibernate.Restaurant;
@@ -14,12 +19,14 @@ import org.hibernate.Session;
  */
 @Stateless
 public class CartHandler implements CartHandlerLocal {
-    
-    
-@Override
-public void addToCart(int productId,int userId){
-    System.out.println("Produkt:"+productId+"User:"+userId);
-     Session session = null;
+
+    /*
+    * Method used to add content to cart
+     */
+    @Override
+    public void addToCart(int productId, int userId) {
+        System.out.println("Produkt:" + productId + "User:" + userId);
+        Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -34,18 +41,24 @@ public void addToCart(int productId,int userId){
         if (session != null) {
             session.clear();
             session.close();
-        } 
-}
- 
-@Override
-public void removeFromCart(int productId,int userId){
-    //Not implmented
-    
-}
+        }
+    }
 
-@Override
-public String resturantDropdownHtml(){
-     Session session = null;
+    /*
+    * Method used to remove content from cart
+     */
+    @Override
+    public void removeFromCart(int productId, int userId) {
+        //Not implmented
+
+    }
+
+    /*
+    * Method used to generate content for the dropdown containing restaurants
+     */
+    @Override
+    public String resturantDropdownHtml() {
+        Session session = null;
         List<Restaurant> restaurant = null;
         String returner = "";
         try {
@@ -60,11 +73,11 @@ public String resturantDropdownHtml(){
 
         for (int i = 0; i < restaurant.size(); i++) {
             Restaurant pr = restaurant.get(i);
-           returner+=" <option value='"+pr.getId()+"'>"+pr.getName()+"</option>";
+            returner += " <option value='" + pr.getId() + "'>" + pr.getName() + "</option>";
         }
 
         return returner;
-  
-}
+
+    }
 
 }

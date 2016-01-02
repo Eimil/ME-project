@@ -33,25 +33,7 @@
                                 <thead>
                                     <th colspan="4">Kunduppgifter</th>
                                 </thead>
-                                <tr>
-                                    <td>Kundnamn</td>
-                                    <td>Magnus Kanfjäll</td>
-                                    <td>Email</td>
-                                    <td>magnus@kanfjall.se</td>
-                                </tr>
-                                <tr>
-                                    <td>Adress</td>
-                                    <td>Villandsgatan 14</td>
-                                    <td>Postnummer</td>
-                                    <td>291 34</td>
-                                </tr>
-                                <tr>
-                                    <td>Telefonnummer</td>
-                                    <td>0768934009</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
+                                ${userInfo}
                             </table>
 
                             <table rowspan="0" border="0" cellspacing="0">
@@ -59,8 +41,6 @@
                                     <th>Produkt</th>
                                     <th>Antal</th>
                                     <th>Pris</th>
-
-
                                 </thead>
                                 ${cart}
 
@@ -68,14 +48,11 @@
                             <table cellspacing="0" rwospan="0" border="0">
                                 <thead>
                                     <th colspan="4">Betalning och leverans</th>
-
-
                                 </thead>
                                 <tr>
                                     <td>Pizzeria :</td>
                                     <td><select name='restaurant' >
                                             ${dropdown}
-                                            
                                         </select> </td>
                                 </tr>
                                 <tr>

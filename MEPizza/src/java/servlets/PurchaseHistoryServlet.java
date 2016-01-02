@@ -19,9 +19,15 @@ import logics.PurchaseHistoryManagerLocal;
  */
 public class PurchaseHistoryServlet extends HttpServlet {
 
+    /*
+    *   The reference to the EJB used to list earlier made purchases.
+     */
     @EJB
     private PurchaseHistoryManagerLocal purchaseHistoryManager;
 
+    /*
+    * Method which handles the GET requests.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,6 +52,9 @@ public class PurchaseHistoryServlet extends HttpServlet {
 
     }
 
+    /*
+    * Method which handles the POST requests.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

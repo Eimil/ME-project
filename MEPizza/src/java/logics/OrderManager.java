@@ -1,12 +1,13 @@
 package logics;
 
 /*
-* The Stateless Session Bean which performs the logics behind handling orders.
+* The Stateless Session Bean which performs the logics behind managing orders.
  */
 import hibernate.Cart;
 import hibernate.HibernateUtil;
 import hibernate.Order;
 import hibernate.Orderlist;
+import hibernate.Product;
 import hibernate.User;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,6 +26,9 @@ public class OrderManager implements OrderManagerLocal {
     @WebServiceRef(wsdlLocation = "http://localhost:8080/BankWebService/BankingWS?wsdl")
     private BankingWS_Service service;
 
+    /*
+    * Method used to create an order, calls web service to check account balance.
+     */
     @Override
     public String createOrder(String[] orderValues) {
         Session session = null;
@@ -70,8 +74,10 @@ public class OrderManager implements OrderManagerLocal {
         return "Couldn't call web service about bank";
     }
 
+    /*
+    * Method used to add products to an order
+     */
     private String addProductsToOrder(int userId, int orderId) {
-
         Session session = null;
         List<Cart> theCart = null;
         try {
@@ -102,6 +108,9 @@ public class OrderManager implements OrderManagerLocal {
         return "Error in adding products to order";
     }
 
+    /*
+    * Method used to call web service to send a mail to a specific address.
+     */
     private boolean callWebServiceAboutMail(int userId, String orderNumber) {
         Session session;
         try {
@@ -125,10 +134,15 @@ public class OrderManager implements OrderManagerLocal {
         return true;
     }
 
+    /*
+    * Method used to get the content for the mail to the user.
+     */
     private String getContentForMail(String orderNumber) {
         Session session = null;
-        String mailContent = null;
+        String mailContent = "\n";
+        List<Orderlist> orderList = null;
         try {
+            session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Order order = (Order) session.createQuery("select order from Order order where order.id = :id")
                     .setParameter("id", Integer.parseInt(orderNumber))
@@ -136,12 +150,29 @@ public class OrderManager implements OrderManagerLocal {
             session.getTransaction().commit();
             session.close();
             if (order.getId() != null) {
-                mailContent += "Ordernummer : " + orderNumber + "\n";
-                mailContent += "Kostnad :" + String.valueOf(order.getPrice()) + "\n";
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                orderList = (List<Orderlist>) session.createQuery("select orderlist from Orderlist orderlist where orderlist.orderId = :orderId").setParameter("orderId", Integer.parseInt(orderNumber)).list();
+                session.getTransaction().commit();
+                session.close();
+                String summarizedProducts = "Produkter \n";
+
+                for (int i = 0; i < orderList.size(); i++) {
+                    session = HibernateUtil.getSessionFactory().openSession();
+                    session.beginTransaction();
+                    int prodId = orderList.get(i).getProductId();
+                    Product product = (Product) session.createQuery("select product from Product product where product.id = :productId")
+                            .setParameter("productId", prodId)
+                            .uniqueResult();
+                    session.getTransaction().commit();
+                    summarizedProducts += "\nNamn " + product.getName() + "\n" + "Pris : " + product.getPrice() + "\n";
+                    session.close();
+                }
+                mailContent += summarizedProducts + "\n";
+                mailContent += "Totalkostnad :" + String.valueOf(order.getPrice()) + "\n";
                 mailContent += "Noteringar : " + order.getNotes() + "\n";
                 mailContent += "Tidpunkt : " + String.valueOf(order.getTime()) + "\n";
             }
-            session.beginTransaction();
         } catch (Exception ex) {
             System.out.println("Couldn't find info for mail content " + ex);
         }

@@ -58,8 +58,10 @@ public class CheckoutServlet extends HttpServlet {
         } else {
 
             String[] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            String userInfo = cartLister.getUserInfo(Integer.parseInt(userID));
             int price = Integer.parseInt(cartResult[1]);
             String dropdown = cartHandler.resturantDropdownHtml();
+            request.setAttribute("userInfo", userInfo);
             request.setAttribute("cart", cartResult[0]);
             request.setAttribute("price", cartResult[1]);
             request.setAttribute("dropdown", dropdown);
