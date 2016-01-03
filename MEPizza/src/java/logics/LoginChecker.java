@@ -43,8 +43,8 @@ public class LoginChecker implements LoginCheckerLocal {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            User user = (User) session.createQuery("select user from User user where user.userName = :username and user.password = :password")
-                    .setParameter("username", username).setParameter("password", password)
+            User user = (User) session.createQuery("select user from User user where user.userName = :username and user.password = :password and user.role = :role")
+                    .setParameter("username", username).setParameter("password", password).setParameter("role", "user")
                     .uniqueResult();
             session.getTransaction().commit();
             if (user.getFullName() != null) {

@@ -60,7 +60,7 @@ public class CartLister implements CartListerLocal {
             session.close();
 
         } catch (Exception ex) {
-            System.out.println("Exception in finding account : " + ex);
+            System.out.println("Exception in cartContensAsHtmlRow : " + ex);
         }
         String priceAsString = String.valueOf(total);
         String[] resultArray = new String[2];

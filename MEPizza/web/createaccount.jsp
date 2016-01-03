@@ -9,7 +9,7 @@
       <meta name="copyright" content="ME-Pizza">
       <link href="/MEPizza/pizza/css.css" rel="stylesheet" type="text/css" />
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <title>ME-Pizza</title>         
+      <title>ME-Pizza - Skapa konto</title>         
    </head>
    <body>
       <div id="Bakgrund">

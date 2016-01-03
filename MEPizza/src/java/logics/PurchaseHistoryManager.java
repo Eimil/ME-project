@@ -110,7 +110,7 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
             }
 
         } catch (Exception ex) {
-            System.out.println("Exception in finding account : " + ex);
+            System.out.println("Exception in getProductsInOrderAsHtmlRow : " + ex);
         }
         return returner;
     }

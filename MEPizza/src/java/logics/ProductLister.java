@@ -31,7 +31,7 @@ public class ProductLister implements ProductListerLocal {
             session.getTransaction().commit();
             session.close(); // kanske skall kommenteras bort
         } catch (Exception ex) {
-            System.out.println("Exception in finding account : " + ex);
+            System.out.println("Exception in listing products : " + ex);
         }
 
         for (int i = 0; i < products.size(); i++) {

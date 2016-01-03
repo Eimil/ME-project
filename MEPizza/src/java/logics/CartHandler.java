@@ -36,7 +36,7 @@ public class CartHandler implements CartHandlerLocal {
             session.save(cart);
             session.getTransaction().commit();
         } catch (Exception ex) {
-            System.out.println("Exception in adding prdukt : " + ex);
+            System.out.println("Exception in adding product to cart : " + ex);
         }
         if (session != null) {
             session.clear();
@@ -68,7 +68,7 @@ public class CartHandler implements CartHandlerLocal {
             session.getTransaction().commit();
             session.close();
         } catch (Exception ex) {
-            System.out.println("Exception in finding account : " + ex);
+            System.out.println("Exception in removing from cart : " + ex);
         }
 
         for (int i = 0; i < restaurant.size(); i++) {
