@@ -1,6 +1,7 @@
 
 package ws;
 
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -26,6 +27,30 @@ public interface BankingWS {
 
     /**
      * 
+     * @param userInfo
+     * @param orderNumber
+     * @param orderInfo
+     * @param restaurantEmail
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "sendMails", targetNamespace = "http://ws/", className = "ws.SendMails")
+    @ResponseWrapper(localName = "sendMailsResponse", targetNamespace = "http://ws/", className = "ws.SendMailsResponse")
+    @Action(input = "http://ws/BankingWS/sendMailsRequest", output = "http://ws/BankingWS/sendMailsResponse")
+    public boolean sendMails(
+        @WebParam(name = "userInfo", targetNamespace = "")
+        List<String> userInfo,
+        @WebParam(name = "orderInfo", targetNamespace = "")
+        String orderInfo,
+        @WebParam(name = "orderNumber", targetNamespace = "")
+        String orderNumber,
+        @WebParam(name = "restaurantEmail", targetNamespace = "")
+        String restaurantEmail);
+
+    /**
+     * 
      * @param cardNmbr
      * @param price
      * @param csv
@@ -44,26 +69,5 @@ public interface BankingWS {
         String cardNmbr,
         @WebParam(name = "csv", targetNamespace = "")
         int csv);
-
-    /**
-     * 
-     * @param address
-     * @param orderNumber
-     * @param orderInfo
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "sendMailToAccount", targetNamespace = "http://ws/", className = "ws.SendMailToAccount")
-    @ResponseWrapper(localName = "sendMailToAccountResponse", targetNamespace = "http://ws/", className = "ws.SendMailToAccountResponse")
-    @Action(input = "http://ws/BankingWS/sendMailToAccountRequest", output = "http://ws/BankingWS/sendMailToAccountResponse")
-    public boolean sendMailToAccount(
-        @WebParam(name = "address", targetNamespace = "")
-        String address,
-        @WebParam(name = "orderInfo", targetNamespace = "")
-        String orderInfo,
-        @WebParam(name = "orderNumber", targetNamespace = "")
-        String orderNumber);
 
 }

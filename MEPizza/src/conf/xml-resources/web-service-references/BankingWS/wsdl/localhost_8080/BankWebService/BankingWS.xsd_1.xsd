@@ -4,23 +4,9 @@
 
 <xs:element name="checkAccountBalanceResponse" type="tns:checkAccountBalanceResponse"/>
 
-<xs:element name="sendMailToAccount" type="tns:sendMailToAccount"/>
+<xs:element name="sendMails" type="tns:sendMails"/>
 
-<xs:element name="sendMailToAccountResponse" type="tns:sendMailToAccountResponse"/>
-
-<xs:complexType name="sendMailToAccount">
-<xs:sequence>
-<xs:element name="address" type="xs:string" minOccurs="0"/>
-<xs:element name="orderInfo" type="xs:string" minOccurs="0"/>
-<xs:element name="orderNumber" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="sendMailToAccountResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
+<xs:element name="sendMailsResponse" type="tns:sendMailsResponse"/>
 
 <xs:complexType name="checkAccountBalance">
 <xs:sequence>
@@ -33,6 +19,21 @@
 <xs:complexType name="checkAccountBalanceResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="sendMails">
+<xs:sequence>
+<xs:element name="userInfo" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="orderInfo" type="xs:string" minOccurs="0"/>
+<xs:element name="orderNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="restaurantEmail" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="sendMailsResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2016-jan-01 19:40:51 by Hibernate Tools 4.3.1
+// Generated 2016-jan-04 14:44:56 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -29,17 +29,28 @@ public class Restaurant  implements java.io.Serializable {
      private String zip;
      private Date start;
      private Date close;
+     private String email;
 
     public Restaurant() {
     }
 
+	
     public Restaurant(String name, String phone, String address, String zip, Date start, Date close) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.zip = zip;
+        this.start = start;
+        this.close = close;
+    }
+    public Restaurant(String name, String phone, String address, String zip, Date start, Date close, String email) {
        this.name = name;
        this.phone = phone;
        this.address = address;
        this.zip = zip;
        this.start = start;
        this.close = close;
+       this.email = email;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -112,6 +123,16 @@ public class Restaurant  implements java.io.Serializable {
     
     public void setClose(Date close) {
         this.close = close;
+    }
+
+    
+    @Column(name="email")
+    public String getEmail() {
+        return this.email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 

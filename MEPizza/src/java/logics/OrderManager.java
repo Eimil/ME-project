@@ -8,13 +8,15 @@ import hibernate.HibernateUtil;
 import hibernate.Order;
 import hibernate.Orderlist;
 import hibernate.Product;
+import hibernate.Restaurant;
 import hibernate.User;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceRef;
 import org.hibernate.Session;
-import ws.BankingWS_Service;
 import ws.BankingWS;
+import ws.BankingWS_Service;
 
 /**
  *
@@ -26,6 +28,7 @@ public class OrderManager implements OrderManagerLocal {
     @WebServiceRef(wsdlLocation = "http://localhost:8080/BankWebService/BankingWS?wsdl")
     private BankingWS_Service service;
 
+    
     /*
     * Method used to create an order, calls web service to check account balance.
      */
@@ -53,7 +56,7 @@ public class OrderManager implements OrderManagerLocal {
                 session.close();
             }
             if (orderId != -1) {
-                if (addProductsToOrder(Integer.parseInt(orderValues[8]), orderId).equalsIgnoreCase("Mail was sent")) {
+                if (addProductsToOrder(Integer.parseInt(orderValues[8]), Integer.parseInt(orderValues[6]), orderId).equalsIgnoreCase("Mail was sent")) {
                     return "CREATED & MAILED";
                 } else {
                     return "Couldn't send mail to user";
@@ -77,7 +80,7 @@ public class OrderManager implements OrderManagerLocal {
     /*
     * Method used to add products to an order
      */
-    private String addProductsToOrder(int userId, int orderId) {
+    private String addProductsToOrder(int userId, int storeId, int orderId) {
         Session session = null;
         List<Cart> theCart = null;
         try {
@@ -97,7 +100,7 @@ public class OrderManager implements OrderManagerLocal {
                 session.createQuery("delete from Cart where id= :id").setParameter("id", cart.getId()).executeUpdate();
             }
             session.close();
-            if (callWebServiceAboutMail(userId, String.valueOf(orderId))) {
+            if (callWebServiceAboutMail(userId, storeId, String.valueOf(orderId))) {
                 return "Mail was sent";
             } else {
                 return "Mail was not sent";
@@ -111,7 +114,7 @@ public class OrderManager implements OrderManagerLocal {
     /*
     * Method used to call web service to send a mail to a specific address.
      */
-    private boolean callWebServiceAboutMail(int userId, String orderNumber) {
+    private boolean callWebServiceAboutMail(int userId, int storeId, String orderNumber) {
         Session session;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -122,9 +125,26 @@ public class OrderManager implements OrderManagerLocal {
             session.getTransaction().commit();
             session.close();
             if (user.getFullName() != null) {
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                String restaurantEmail = null;
+                Restaurant restaurant = (Restaurant) session.createQuery("select restaurant from Restaurant restaurant where restaurant.id = :id")
+                        .setParameter("id", storeId)
+                        .uniqueResult();
+                session.getTransaction().commit();
+                session.close();
+                if (restaurant.getEmail() != null) {
+                    restaurantEmail = restaurant.getEmail();
+                }      
+                List<String> userInfo = new ArrayList<String>();
+                userInfo.add("Namn: " + user.getFullName() + "\n");
+                userInfo.add("Adress: " + user.getAddress() + "\n");
+                userInfo.add("Postnummer: " + user.getZipCode() + "\n");
+                userInfo.add("Telefonnummer: " + user.getPhone() + "\n");
+                userInfo.add(user.getEmail());
                 String orderInfo = getContentForMail(orderNumber);
                 BankingWS port = service.getBankingWSPort();
-                return port.sendMailToAccount(user.getEmail(), orderInfo, orderNumber);
+                return port.sendMails(userInfo, orderInfo, orderNumber, restaurantEmail);
             } else {
                 return false;
             }
@@ -177,6 +197,13 @@ public class OrderManager implements OrderManagerLocal {
             System.out.println("Couldn't find info for mail content " + ex);
         }
         return mailContent;
+    }
+
+    private boolean sendMails(java.util.List<java.lang.String> userInfo, java.lang.String orderInfo, java.lang.String orderNumber, java.lang.String restaurantEmail) {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        ws.BankingWS port = service.getBankingWSPort();
+        return port.sendMails(userInfo, orderInfo, orderNumber, restaurantEmail);
     }
 
 }

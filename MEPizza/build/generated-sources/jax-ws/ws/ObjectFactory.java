@@ -26,8 +26,8 @@ public class ObjectFactory {
 
     private final static QName _CheckAccountBalanceResponse_QNAME = new QName("http://ws/", "checkAccountBalanceResponse");
     private final static QName _CheckAccountBalance_QNAME = new QName("http://ws/", "checkAccountBalance");
-    private final static QName _SendMailToAccount_QNAME = new QName("http://ws/", "sendMailToAccount");
-    private final static QName _SendMailToAccountResponse_QNAME = new QName("http://ws/", "sendMailToAccountResponse");
+    private final static QName _SendMailsResponse_QNAME = new QName("http://ws/", "sendMailsResponse");
+    private final static QName _SendMails_QNAME = new QName("http://ws/", "sendMails");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ws
@@ -53,19 +53,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SendMailToAccount }
+     * Create an instance of {@link SendMailsResponse }
      * 
      */
-    public SendMailToAccount createSendMailToAccount() {
-        return new SendMailToAccount();
+    public SendMailsResponse createSendMailsResponse() {
+        return new SendMailsResponse();
     }
 
     /**
-     * Create an instance of {@link SendMailToAccountResponse }
+     * Create an instance of {@link SendMails }
      * 
      */
-    public SendMailToAccountResponse createSendMailToAccountResponse() {
-        return new SendMailToAccountResponse();
+    public SendMails createSendMails() {
+        return new SendMails();
     }
 
     /**
@@ -87,21 +87,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SendMailToAccount }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SendMailsResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ws/", name = "sendMailToAccount")
-    public JAXBElement<SendMailToAccount> createSendMailToAccount(SendMailToAccount value) {
-        return new JAXBElement<SendMailToAccount>(_SendMailToAccount_QNAME, SendMailToAccount.class, null, value);
+    @XmlElementDecl(namespace = "http://ws/", name = "sendMailsResponse")
+    public JAXBElement<SendMailsResponse> createSendMailsResponse(SendMailsResponse value) {
+        return new JAXBElement<SendMailsResponse>(_SendMailsResponse_QNAME, SendMailsResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SendMailToAccountResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link SendMails }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://ws/", name = "sendMailToAccountResponse")
-    public JAXBElement<SendMailToAccountResponse> createSendMailToAccountResponse(SendMailToAccountResponse value) {
-        return new JAXBElement<SendMailToAccountResponse>(_SendMailToAccountResponse_QNAME, SendMailToAccountResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://ws/", name = "sendMails")
+    public JAXBElement<SendMails> createSendMails(SendMails value) {
+        return new JAXBElement<SendMails>(_SendMails_QNAME, SendMails.class, null, value);
     }
 
 }

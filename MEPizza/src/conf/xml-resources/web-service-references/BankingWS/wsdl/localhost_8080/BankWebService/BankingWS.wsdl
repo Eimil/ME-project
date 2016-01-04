@@ -4,31 +4,31 @@
 <xsd:import namespace="http://ws/" schemaLocation="http://localhost:8080/BankWebService/BankingWS?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="sendMails">
+<part name="parameters" element="tns:sendMails"/>
+</message>
+<message name="sendMailsResponse">
+<part name="parameters" element="tns:sendMailsResponse"/>
+</message>
 <message name="checkAccountBalance">
 <part name="parameters" element="tns:checkAccountBalance"/>
 </message>
 <message name="checkAccountBalanceResponse">
 <part name="parameters" element="tns:checkAccountBalanceResponse"/>
 </message>
-<message name="sendMailToAccount">
-<part name="parameters" element="tns:sendMailToAccount"/>
-</message>
-<message name="sendMailToAccountResponse">
-<part name="parameters" element="tns:sendMailToAccountResponse"/>
-</message>
 <portType name="BankingWS">
+<operation name="sendMails">
+<input wsam:Action="http://ws/BankingWS/sendMailsRequest" message="tns:sendMails"/>
+<output wsam:Action="http://ws/BankingWS/sendMailsResponse" message="tns:sendMailsResponse"/>
+</operation>
 <operation name="checkAccountBalance">
 <input wsam:Action="http://ws/BankingWS/checkAccountBalanceRequest" message="tns:checkAccountBalance"/>
 <output wsam:Action="http://ws/BankingWS/checkAccountBalanceResponse" message="tns:checkAccountBalanceResponse"/>
 </operation>
-<operation name="sendMailToAccount">
-<input wsam:Action="http://ws/BankingWS/sendMailToAccountRequest" message="tns:sendMailToAccount"/>
-<output wsam:Action="http://ws/BankingWS/sendMailToAccountResponse" message="tns:sendMailToAccountResponse"/>
-</operation>
 </portType>
 <binding name="BankingWSPortBinding" type="tns:BankingWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="checkAccountBalance">
+<operation name="sendMails">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -37,7 +37,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="sendMailToAccount">
+<operation name="checkAccountBalance">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
