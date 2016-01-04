@@ -35,4 +35,25 @@ public class Utils implements UtilsLocal {
 
         return 0;
     }
+    
+    @Override
+    public String translateStatus(String key, String lang) {
+
+        switch (lang) {
+            case "swe":
+                switch (key) {
+                    case "new":
+                        return "Ny order";
+                    case "finished":
+                        return "Avslutad";
+                    case "erased":
+                        return "Makulerad";
+                    default:
+                        break;
+                }
+            default:
+                return key;
+        }
+
+    }
 }

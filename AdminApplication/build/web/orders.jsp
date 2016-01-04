@@ -22,9 +22,8 @@
             </div>
          </div>
          <div id="meny">
-            <li><a href='ProductServlet'>Produkter</a></li> -
-            <li><a href='CheckoutServlet'>Kassa</a></li> -
-            <li><a href='PurchaseHistoryServlet'>Historik</a></li>
+           <li><a href='ProductServlet'>Produkter</a></li> -
+                      <li><a href='OrderServlet'>Historik</a></li>
          </div>
          <div id="main_box">
                      

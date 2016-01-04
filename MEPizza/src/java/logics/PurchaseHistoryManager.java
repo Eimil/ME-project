@@ -35,7 +35,7 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            products = (List<Order>) session.createQuery("from Order order where order.userId = :userId ORDER BY id DESC").setParameter("userId", userId).list();
+            products = (List<Order>) session.createQuery("from Order order where order.userId = :userId and order.status!='erased' ORDER BY id DESC").setParameter("userId", userId).list();
             session.getTransaction().commit();
 
             for (int i = 0; i < products.size(); i++) {

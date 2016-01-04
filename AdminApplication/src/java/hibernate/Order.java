@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2016-jan-04 15:51:31 by Hibernate Tools 4.3.1
+// Generated 2016-jan-04 23:08:56 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -28,16 +28,18 @@ public class Order  implements java.io.Serializable {
      private int storeId;
      private String notes;
      private int price;
+     private String status;
 
     public Order() {
     }
 
-    public Order(Date time, int userId, int storeId, String notes, int price) {
+    public Order(Date time, int userId, int storeId, String notes, int price, String status) {
        this.time = time;
        this.userId = userId;
        this.storeId = storeId;
        this.notes = notes;
        this.price = price;
+       this.status = status;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -100,6 +102,16 @@ public class Order  implements java.io.Serializable {
     
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    
+    @Column(name="status", nullable=false, length=7)
+    public String getStatus() {
+        return this.status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 

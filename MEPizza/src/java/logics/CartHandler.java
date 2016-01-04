@@ -49,7 +49,7 @@ public class CartHandler implements CartHandlerLocal {
      */
     @Override
     public void removeFromCart(int productId, int userId) {
-        //Not implmented
+        throw new UnsupportedOperationException("Not supported yet.");
 
     }
 

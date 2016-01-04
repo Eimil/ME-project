@@ -25,7 +25,7 @@ public class Util implements UtilLocal {
                     case "finished":
                         return "Avslutad";
                     case "erased":
-                        return "Markulerad";
+                        return "Makulerad";
                     default:
                         break;
                 }

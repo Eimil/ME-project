@@ -6,6 +6,7 @@ import hibernate.Orderlist;
 import hibernate.Product;
 import hibernate.Restaurant;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.hibernate.Session;
 
@@ -15,6 +16,9 @@ import org.hibernate.Session;
  */
 @Stateless
 public class OrderManager implements OrderManagerLocal {
+
+    @EJB
+    private UtilsLocal utils;
 
     @Override
     public String getPurchasesAsHtmlRows(int storeId) {
@@ -41,10 +45,20 @@ public class OrderManager implements OrderManagerLocal {
                 }else{
                      notes=orderRow.getNotes();
                 }
-                returner += " <thead>\n"
+                
+                
+                String confirm="";
+                if(orderRow.getStatus().equals("new")){
+                    confirm="<input type=\"submit\" name=\"finishButton\" value=\"Avsluta order\">";
+                }
+                returner += " "
+                        + "<form action=\"OrderServlet\" method=\"post\">"
+                        + "<input type=\"hidden\" name='id' value='" + orderRow.getId() + "'"
+                        + "<thead>\n"
                         + "                <th>OrderId</th>\n"
                         + "                <th>Datum</th>\n"
                         + "                <th>Pizzeria</th>\n"
+                        + "                <th>Status</th>\n"
                         + "                <th>Anteckningar</th>\n"
                         + "    \n"
                         + "            </thead>\n"
@@ -52,6 +66,7 @@ public class OrderManager implements OrderManagerLocal {
                         + "                <td>" + orderRow.getId() + "</td>\n"
                         + "                <td>" + orderRow.getTime() + "</td>\n"
                         + "                <td>" + restaurant.getName() + "</td>\n"
+                        + "                <td>" + utils.translateStatus(orderRow.getStatus(),"swe")+ "</td>\n"
                         + "                <td class=\"notes\" title='"+orderRow.getNotes()+"'>" +notes + "</td>\n"
                         + "                \n"
                         + "            \n"
@@ -63,11 +78,12 @@ public class OrderManager implements OrderManagerLocal {
                         + getProductsInOrderAsHtmlRow(orderRow.getId())
                         + "            <tr >\n"
                         + "                  <td colspan=\"2\" class=\"total\" >Totalt " + orderRow.getPrice() + "kr</td>\n"
-                        + "                  <td colspan=\"3\"><strong><a href='#'>Bekräfta order</a></strong> / <strong><a href='#'>Markulera order</a></strong></td>\n"
+                        + "                  <td colspan=\"3\">"+confirm+"<input type=\"submit\" name=\"removeButton\" value=\"Makulera order\"></td>\n"
                         + "            </tr>\n"
                         + "              <tr  class='emptyRow'>\n"
                         + "                  <td colspan=\"5\"></td>\n"
-                        + "            </tr>\n";
+                        + "            </tr>\n"
+                        + "</form>";
 
             }
         } catch (Exception ex) {
@@ -110,5 +126,26 @@ public class OrderManager implements OrderManagerLocal {
             System.out.println("Exception in getProductsInOrderAsHtmlRow : " + ex);
         }
         return returner;
+    }
+    
+    @Override
+    public void setStatus(int id,String status) {
+       try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Order order = (Order) session.createQuery("select order from Order order where order.id = :id")
+                    .setParameter("id", id)
+                    .uniqueResult();
+            session.getTransaction().commit();
+            session.beginTransaction();
+            order.setStatus(status);
+            session.save(order);
+            session.getTransaction().commit();
+            session.close();
+           
+        } catch (Exception ex) {
+            System.out.println("Couldn't modify order " + ex);
+        }
+       
     }
 }
