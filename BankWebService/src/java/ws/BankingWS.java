@@ -61,24 +61,45 @@ public class BankingWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "sendMailToAccount")
-    public boolean sendMailToAccount(@WebParam(name = "address") String address, @WebParam(name = "orderInfo") String orderInfo, @WebParam(name = "orderNumber") String orderNumber) {
+    @WebMethod(operationName = "sendMails")
+    public boolean sendMails(@WebParam(name = "userInfo") String[] userInfo, @WebParam(name = "orderInfo") String orderInfo, @WebParam(name = "orderNumber") String orderNumber, @WebParam(name = "restaurantEmail") String restaurantEmail) {
         try {
+            System.out.println("TRYING TO SEND MAIL : STORE EMAIL IS " + restaurantEmail);
+
             Properties props = System.getProperties();
             props.put("mail.smtp.port", "587");
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
+            
+            // Mail to user
             Session session = Session.getDefaultInstance(props, null);
             MimeMessage message = new MimeMessage(session);
             Multipart multiPart = new MimeMultipart("alternative");
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userInfo[4]));
             message.setSubject("Din ME-pizza beställning");
-            String content = "Din beställning med ordernummer " + orderNumber + " är nu gjord. \n" + "Order info : " + orderInfo;
+            String content = "Din beställning med ordernummer " + orderNumber + " är nu gjord. \n" + orderInfo;
             MimeBodyPart body = new MimeBodyPart();
             body.setText(content, "utf-8");
             multiPart.addBodyPart(body);
             message.setContent(multiPart);
             Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", "mepizzacontact@gmail.com", "TrialAndError13");
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            //ss
+            // Mail to restaurant
+            session = Session.getDefaultInstance(props, null);
+            message = new MimeMessage(session);
+            multiPart = new MimeMultipart("alternative");
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(restaurantEmail));
+            message.setSubject("En ny beställning!");
+            String contentForStore = "En beställning med ordernummer " + orderNumber + " är nu gjord av en kund. \n" + orderInfo + "\n";
+            contentForStore += "Kunduppgifter : \n " + userInfo[0] + userInfo[1] + userInfo[2] + userInfo[3];
+            body = new MimeBodyPart();
+            body.setText(contentForStore, "utf-8");
+            multiPart.addBodyPart(body);
+            message.setContent(multiPart);
+            transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", "mepizzacontact@gmail.com", "TrialAndError13");
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
