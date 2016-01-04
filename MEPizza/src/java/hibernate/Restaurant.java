@@ -1,9 +1,5 @@
 package hibernate;
-<<<<<<< HEAD
-// Generated 2016-jan-04 22:33:07 by Hibernate Tools 4.3.1
-=======
-// Generated 2016-jan-04 14:44:56 by Hibernate Tools 4.3.1
->>>>>>> origin/master
+// Generated 2016-jan-04 23:01:22 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
