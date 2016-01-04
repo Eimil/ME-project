@@ -10,6 +10,7 @@ import hibernate.Product;
 
 import hibernate.Restaurant;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.hibernate.Session;
 
@@ -19,6 +20,9 @@ import org.hibernate.Session;
  */
 @Stateless
 public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
+
+    @EJB
+    private UtilLocal util;
 
     /*
     *   Method used to get the earlier made purchases listed in order history
@@ -41,11 +45,17 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
                         .setParameter("id", pr.getStoreId())
                         .uniqueResult();
                 session.getTransaction().commit();
-
+                String notes="";
+                
+                if(pr.getNotes().length()>=202){
+                    notes=pr.getNotes().substring(0, 200);
+                }
+                
                 returner += " <thead>\n"
                         + "                <th>OrderId</th>\n"
                         + "                <th>Datum</th>\n"
                         + "                <th>Pizzeria</th>\n"
+                        + "                <th>Status</th>\n"
                         + "                <th>Anteckningar</th>\n"
                         + "    \n"
                         + "            </thead>\n"
@@ -53,7 +63,8 @@ public class PurchaseHistoryManager implements PurchaseHistoryManagerLocal {
                         + "                <td>" + pr.getId() + "</td>\n"
                         + "                <td>" + pr.getTime() + "</td>\n"
                         + "                <td>" + restaurant.getName() + "</td>\n"
-                        + "                <td class=\"notes\">" + pr.getNotes() + "</td>\n"
+                        + "                <td>" + util.translateStatus(pr.getStatus(),"swe") + "</td>\n"                        
+                        + "                <td class=\"notes\" title='" + pr.getNotes() + "'>" + notes + "</td>\n"
                         + "                \n"
                         + "            \n"
                         + "            </tr>\n"

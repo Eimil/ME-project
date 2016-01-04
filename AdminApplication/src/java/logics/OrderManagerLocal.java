@@ -8,5 +8,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface OrderManagerLocal {
+
+    public String getPurchasesAsHtmlRows(int userId);
     
 }

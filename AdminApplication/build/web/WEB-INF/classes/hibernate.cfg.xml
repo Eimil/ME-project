@@ -6,14 +6,14 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mepizza</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">root</property>
-    <mapping resource="hibernate/Orderlist.hbm.xml"/>
-    <mapping resource="hibernate/Orderlog.hbm.xml"/>
-    <mapping resource="hibernate/Product.hbm.xml"/>
-    <mapping resource="hibernate/Card.hbm.xml"/>
-    <mapping resource="hibernate/Cart.hbm.xml"/>
+    <property name="hibernate.connection.password">Logon123</property>
     <mapping resource="hibernate/User.hbm.xml"/>
+    <mapping resource="hibernate/Cart.hbm.xml"/>
     <mapping resource="hibernate/Order.hbm.xml"/>
+    <mapping resource="hibernate/Product.hbm.xml"/>
+    <mapping resource="hibernate/Orderlog.hbm.xml"/>
     <mapping resource="hibernate/Restaurant.hbm.xml"/>
+    <mapping resource="hibernate/Card.hbm.xml"/>
+    <mapping resource="hibernate/Orderlist.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

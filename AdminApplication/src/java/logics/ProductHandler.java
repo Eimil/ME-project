@@ -20,10 +20,10 @@ public class ProductHandler implements ProductHandlerLocal {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Product product = new Product();
-            product.setName("NAME");
-            product.setDescription("DESCRIPTION");
-            product.setPicLink("PICTURELINK");
-            product.setPrice(1);
+            product.setName(productInfo[0]);
+            product.setDescription(productInfo[1]);
+            product.setPicLink(productInfo[2]);
+            product.setPrice(Double.parseDouble(productInfo[3]));
             session.save(product);
             session.getTransaction().commit();
             success = true;
@@ -46,7 +46,7 @@ public class ProductHandler implements ProductHandlerLocal {
             session.beginTransaction();
             session.createQuery("delete from Product where id= :id").setParameter("id", productId).executeUpdate();
             session.getTransaction().commit();
-            session.close();
+            success = true;
         } catch (Exception ex) {
             System.out.println("Exception in removing product to the menu : " + ex);
         }
@@ -56,5 +56,4 @@ public class ProductHandler implements ProductHandlerLocal {
         }
         return success;
     }
-
 }

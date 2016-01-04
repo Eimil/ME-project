@@ -26,7 +26,7 @@ public class ProductLister implements ProductListerLocal {
             session.beginTransaction();
             products = (List<Product>) session.createQuery("from Product").list();
             session.getTransaction().commit();
-            session.close(); // kanske skall kommenteras bort
+            session.close();
         } catch (Exception ex) {
             System.out.println("Exception in finding account : " + ex);
         }
@@ -37,16 +37,13 @@ public class ProductLister implements ProductListerLocal {
                     + " \n"
                     + "  <input type=\"hidden\" name=\"id\" value=\"" + pr.getId() + "\">";
             returner += "<tr>";
-
             returner += "<td>" + pr.getName() + "</td>";
             returner += "<td>" + pr.getDescription() + "</td>";
             returner += "<td><img src=\"" + pr.getPicLink() + "\" height=\"42\" width=\"42\"></td>";
             returner += "<td>" + pr.getPrice() + "</td>";
-            returner += "<td><input type=\"submit\" value=\"Lägg till kundvagn\"></td>";
-
+            returner += "<td><input type=\"submit\" name=\"removeButton\" value=\"Ta bort produkt\"></td>";
             returner += "</tr></form>";
         }
-
         return returner;
     }
 }
