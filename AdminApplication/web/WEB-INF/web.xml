@@ -19,10 +19,6 @@
         <servlet-class>servlets.ProductServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HistoryServlet</servlet-name>
-        <servlet-class>servlets.HistoryServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>OrderServlet</servlet-name>
         <servlet-class>servlets.OrderServlet</servlet-class>
     </servlet>
@@ -37,10 +33,6 @@
     <servlet-mapping>
         <servlet-name>ProductServlet</servlet-name>
         <url-pattern>/ProductServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HistoryServlet</servlet-name>
-        <url-pattern>/HistoryServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderServlet</servlet-name>

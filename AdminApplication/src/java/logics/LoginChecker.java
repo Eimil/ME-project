@@ -3,7 +3,6 @@ package logics;
 /*
 * The Stateless Session Bean which performs the logics behind logging an account in.
  */
-
 import hibernate.HibernateUtil;
 import hibernate.User;
 import java.security.MessageDigest;

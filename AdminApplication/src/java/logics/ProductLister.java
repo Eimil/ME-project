@@ -1,5 +1,8 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind listing the products.
+ */
 import hibernate.HibernateUtil;
 import hibernate.Product;
 import java.util.List;

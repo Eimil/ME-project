@@ -22,18 +22,15 @@
             </div>
          </div>
          <div id="meny">
-            <li><a href='ProductServlet'>Produkter</a></li> -
+            <li><a href='StoreServlet'>Produkter</a></li> -
             <li><a href='CheckoutServlet'>Kassa</a></li> -
             <li><a href='PurchaseHistoryServlet'>Historik</a></li>
          </div>
          <div id="main_box">
-            <form method="post" action="SettingsServlet">
-                
+            <form method="post" action="SettingsServlet">             
                 <table cellspacing="0" rowspan="0" border="0">
                      <thead>
-                        <th colspan="4">Uppgifter</th>
-                        
-
+                        <th colspan="4">Uppgifter</th>                       
                     </thead>
                     <tr>
                         <td>Fullständigt namn :</td>
@@ -68,13 +65,6 @@
                         <td> <input type="tel" name="phone" placeholder="${phone}" minlength=5 value=""/></td>
                     </tr>
                 </table>
-                
-                
-                
-                
-            
-               
-             
                <input type="submit" name="changeButton" value="Ändra kontouppgifter" />
             </form>
               ${error}

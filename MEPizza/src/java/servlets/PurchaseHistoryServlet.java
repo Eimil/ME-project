@@ -5,12 +5,15 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logics.CookieCheckerLocal;
 import logics.PurchaseHistoryManagerLocal;
 
 /**
@@ -26,22 +29,22 @@ public class PurchaseHistoryServlet extends HttpServlet {
     private PurchaseHistoryManagerLocal purchaseHistoryManager;
 
     /*
+    *   The reference to the EJB used to check if a valid cookie exists.
+     */
+    @EJB
+    private CookieCheckerLocal cookieChecker;
+
+    /*
     * Method which handles the GET requests.
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String userID = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaUser")) {
-                    userID = cookie.getValue();
-                    cookie.setMaxAge(15 * 60);
-                    response.addCookie(cookie);
-                }
-            }
-        }
+        List<Object> list = new ArrayList<>();
+        list = cookieChecker.checkIfCookieExists(request, response);
+        response = (HttpServletResponse) list.get(0);
+        userID = (String) list.get(1);
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {

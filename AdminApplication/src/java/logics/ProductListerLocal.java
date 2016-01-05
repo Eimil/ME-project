@@ -1,5 +1,8 @@
 package logics;
 
+/*
+ * Local interface for the ProductLister bean.
+ */
 import javax.ejb.Local;
 
 /**
@@ -10,5 +13,5 @@ import javax.ejb.Local;
 public interface ProductListerLocal {
 
     String listAvaliableProducts();
-    
+
 }

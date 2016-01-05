@@ -23,12 +23,11 @@
             </div>
          </div>
          <div id="meny">
-            <li><a href='ProductServlet'>Produkter</a></li> -
+            <li><a href='StoreServlet'>Produkter</a></li> -
             <li><a href='CheckoutServlet'>Kassa</a></li> -
             <li><a href='PurchaseHistoryServlet'>Historik</a></li>
          </div>
-         <div id="main_box">
-                     
+         <div id="main_box">                 
         <table rowspan="0" border="0" cellspacing="0">
             <thead>
                 <th>Produkt</th>
@@ -36,21 +35,16 @@
                 <th>Bild</th>
                  <th>Pris</th>
                 <th>Alternativ</th>
-    
             </thead>
             ${products}
-           
         </table>
                 <table rowspan="0" border="0" cellspacing="0">
             <thead>
                 <th>Produkt</th>
                 <th>Antal</th>
-                <th>Pris</th>
-            
-    
+                <th>Pris</th>           
             </thead>
-            ${cart}
-           
+            ${cart}   
         </table>
          </div>
          <div id="fotter">

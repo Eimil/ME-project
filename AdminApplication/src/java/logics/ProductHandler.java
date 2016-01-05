@@ -1,5 +1,8 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind adding/removing products.
+ */
 import hibernate.HibernateUtil;
 import hibernate.Product;
 import javax.ejb.Stateless;
@@ -12,6 +15,9 @@ import org.hibernate.Session;
 @Stateless
 public class ProductHandler implements ProductHandlerLocal {
 
+    /*
+    *   Method which is called to add a product to the menu.
+     */
     @Override
     public boolean addProduct(String[] productInfo) {
         Session session = null;
@@ -37,6 +43,9 @@ public class ProductHandler implements ProductHandlerLocal {
         return success;
     }
 
+    /*
+    *   Method which is called remove a product from the menu.
+     */
     @Override
     public boolean removeProduct(int productId) {
         Session session = null;

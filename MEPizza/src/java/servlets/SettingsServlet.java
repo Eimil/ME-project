@@ -5,6 +5,7 @@ package servlets;
 *   Reads the inputed parametres and calls the responsible bean to act.
  */
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import logics.AccountInfoChangerLocal;
+import logics.CookieCheckerLocal;
 
 /**
  *
@@ -33,6 +35,12 @@ public class SettingsServlet extends HttpServlet {
     private AccountInfoChangerLocal accountInfoChanger;
 
     /*
+    *   The reference to the EJB used to check if a valid cookie exists.
+     */
+    @EJB
+    private CookieCheckerLocal cookieChecker;
+
+    /*
     *   Method which handles the GET request.
      */
     @Override
@@ -49,17 +57,11 @@ public class SettingsServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String changeButton = request.getParameter("changeButton");
-        Cookie[] cookies = request.getCookies();
         String userID = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaUser")) {
-                    userID = cookie.getValue();
-                    cookie.setMaxAge(15 * 60);
-                    response.addCookie(cookie);
-                }
-            }
-        }
+        List<Object> list = new ArrayList<>();
+        list = cookieChecker.checkIfCookieExists(request, response);
+        response = (HttpServletResponse) list.get(0);
+        userID = (String) list.get(1);
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {

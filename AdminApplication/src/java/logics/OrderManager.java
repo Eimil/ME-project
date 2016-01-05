@@ -1,5 +1,8 @@
 package logics;
 
+/*
+* The Stateless Session Bean which performs the logics behind handling orders.
+ */
 import hibernate.HibernateUtil;
 import hibernate.Order;
 import hibernate.Orderlist;
@@ -17,9 +20,15 @@ import org.hibernate.Session;
 @Stateless
 public class OrderManager implements OrderManagerLocal {
 
+    /*
+    *   The reference to the EJB used to translate orderstatus/storeId
+     */
     @EJB
     private UtilsLocal utils;
 
+    /*
+    *   Method which is called to get purchases(orders) of an restaurant.
+     */
     @Override
     public String getPurchasesAsHtmlRows(int storeId) {
         Session session = null;
@@ -39,17 +48,16 @@ public class OrderManager implements OrderManagerLocal {
                         .uniqueResult();
                 session.getTransaction().commit();
 
-                String notes="";
-                if(orderRow.getNotes().length()>=202){
-                    notes=orderRow.getNotes().substring(0, 200);
-                }else{
-                     notes=orderRow.getNotes();
+                String notes = "";
+                if (orderRow.getNotes().length() >= 202) {
+                    notes = orderRow.getNotes().substring(0, 200);
+                } else {
+                    notes = orderRow.getNotes();
                 }
-                
-                
-                String confirm="";
-                if(orderRow.getStatus().equals("new")){
-                    confirm="<input type=\"submit\" name=\"finishButton\" value=\"Avsluta order\">";
+
+                String confirm = "";
+                if (orderRow.getStatus().equals("new")) {
+                    confirm = "<input type=\"submit\" name=\"finishButton\" value=\"Avsluta order\">";
                 }
                 returner += " "
                         + "<form action=\"OrderServlet\" method=\"post\">"
@@ -66,8 +74,8 @@ public class OrderManager implements OrderManagerLocal {
                         + "                <td>" + orderRow.getId() + "</td>\n"
                         + "                <td>" + orderRow.getTime() + "</td>\n"
                         + "                <td>" + restaurant.getName() + "</td>\n"
-                        + "                <td>" + utils.translateStatus(orderRow.getStatus(),"swe")+ "</td>\n"
-                        + "                <td class=\"notes\" title='"+orderRow.getNotes()+"'>" +notes + "</td>\n"
+                        + "                <td>" + utils.translateStatus(orderRow.getStatus(), "swe") + "</td>\n"
+                        + "                <td class=\"notes\" title='" + orderRow.getNotes() + "'>" + notes + "</td>\n"
                         + "                \n"
                         + "            \n"
                         + "            </tr>\n"
@@ -78,7 +86,7 @@ public class OrderManager implements OrderManagerLocal {
                         + getProductsInOrderAsHtmlRow(orderRow.getId())
                         + "            <tr >\n"
                         + "                  <td colspan=\"2\" class=\"total\" >Totalt " + orderRow.getPrice() + "kr</td>\n"
-                        + "                  <td colspan=\"3\">"+confirm+"<input type=\"submit\" name=\"removeButton\" value=\"Makulera order\"></td>\n"
+                        + "                  <td colspan=\"3\">" + confirm + "<input type=\"submit\" name=\"removeButton\" value=\"Makulera order\"></td>\n"
                         + "            </tr>\n"
                         + "              <tr  class='emptyRow'>\n"
                         + "                  <td colspan=\"5\"></td>\n"
@@ -94,8 +102,11 @@ public class OrderManager implements OrderManagerLocal {
 
     }
 
+    /*
+    *   Method which is called to get the products of an order.
+     */
     private String getProductsInOrderAsHtmlRow(int OrderId) {
-        System.out.println("OrderIDD:" + OrderId);
+        System.out.println("OrderID:" + OrderId);
         Session session = null;
         List<Orderlist> orderlist = null;
         String returner = "";
@@ -127,10 +138,13 @@ public class OrderManager implements OrderManagerLocal {
         }
         return returner;
     }
-    
+
+    /*
+    *   Method which is called to set the status of an order.
+     */
     @Override
-    public void setStatus(int id,String status) {
-       try {
+    public void setStatus(int id, String status) {
+        try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Order order = (Order) session.createQuery("select order from Order order where order.id = :id")
@@ -142,10 +156,10 @@ public class OrderManager implements OrderManagerLocal {
             session.save(order);
             session.getTransaction().commit();
             session.close();
-           
+
         } catch (Exception ex) {
             System.out.println("Couldn't modify order " + ex);
         }
-       
+
     }
 }

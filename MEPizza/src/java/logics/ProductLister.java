@@ -36,7 +36,7 @@ public class ProductLister implements ProductListerLocal {
 
         for (int i = 0; i < products.size(); i++) {
             Product pr = products.get(i);
-            returner += "<form action=\"ProductServlet\" method=\"post\">\n"
+            returner += "<form action=\"StoreServlet\" method=\"post\">\n"
                     + " \n"
                     + "  <input type=\"hidden\" name=\"id\" value=\""+pr.getId()+"\">";
             returner += "<tr>";
@@ -49,7 +49,6 @@ public class ProductLister implements ProductListerLocal {
 
             returner += "</tr></form>";
         }
-
         return returner;
     }
 }

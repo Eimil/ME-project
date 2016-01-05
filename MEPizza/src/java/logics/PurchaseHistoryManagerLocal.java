@@ -3,7 +3,6 @@ package logics;
 /*
  * Local interface for the PurchaseHistoryManager bean.
  */
-
 import javax.ejb.Local;
 
 /**
@@ -14,5 +13,5 @@ import javax.ejb.Local;
 public interface PurchaseHistoryManagerLocal {
 
     public String getPurchasesAsHtmlRows(int userId);
-    
+
 }

@@ -1,17 +1,20 @@
 package servlets;
 
-import hibernate.HibernateUtil;
-import hibernate.Order;
+/*
+*  The servlet acting as a controller for the purpose of handling orders.
+*   Reads the inputed parametres and calls the responsible bean to act.
+ */
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logics.CookieCheckerLocal;
 import logics.OrderManagerLocal;
 import logics.UtilsLocal;
-
 
 /**
  *
@@ -19,26 +22,36 @@ import logics.UtilsLocal;
  */
 public class OrderServlet extends HttpServlet {
 
+    /*
+    *   The reference to the EJB used to check if a valid cookie exists.
+     */
+    @EJB
+    private CookieCheckerLocal cookieChecker;
+
+    /*
+    *   The reference to the EJB used to translate orderstatus/storeId
+     */
     @EJB
     private UtilsLocal utils;
 
+    /*
+    *   The reference to the EJB used to manage orders.
+     */
     @EJB
     private OrderManagerLocal orderManager;
 
+    /*
+    *   Method which handles the GET request.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String userID = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaAdmin")) {
-                    userID = cookie.getValue();
-                    cookie.setMaxAge(15 * 60);
-                    response.addCookie(cookie);
-                }
-            }
-        }
+        List<Object> list = new ArrayList<>();
+        list = cookieChecker.checkIfCookieExists(request, response);
+        response = (HttpServletResponse) list.get(0);
+        userID = (String) list.get(1);
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
@@ -50,39 +63,32 @@ public class OrderServlet extends HttpServlet {
 
     }
 
+    /*
+    *   Method which handles the POST request.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String userID = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaAdmin")) {
-                    userID = cookie.getValue();
-                    cookie.setMaxAge(15 * 60);
-                    response.addCookie(cookie);
-                }
-            }
-        }
+        List<Object> list = new ArrayList<>();
+        list = cookieChecker.checkIfCookieExists(request, response);
+        response = (HttpServletResponse) list.get(0);
+        userID = (String) list.get(1);
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
-
             String removeButton = request.getParameter("removeButton");
             String finishButton = request.getParameter("finishButton");
             int id = Integer.parseInt(request.getParameter("id"));
             if (finishButton != null && finishButton.length() > 3) {
                 orderManager.setStatus(id, "finished");
-                
+
                 //Send email
             } else if (removeButton != null && removeButton.length() > 3) {
                 orderManager.setStatus(id, "erased");
             }
-
             doGet(request, response);
-
         }
     }
-
-
 }

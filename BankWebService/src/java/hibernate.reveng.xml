@@ -7,7 +7,6 @@
   <table-filter match-name="card"/>
   <table-filter match-name="restaurant"/>
   <table-filter match-name="product"/>
-  <table-filter match-name="orderlog"/>
   <table-filter match-name="order"/>
   <table-filter match-name="orderlist"/>
 </hibernate-reverse-engineering>

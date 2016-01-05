@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logics;
 
+/*
+* The Stateless Session Bean which handles the translation of an orders status
+* and the translation between userId and storeId.
+ */
 import hibernate.HibernateUtil;
 import hibernate.User;
 import javax.ejb.Stateless;
@@ -17,6 +16,9 @@ import org.hibernate.Session;
 @Stateless
 public class Utils implements UtilsLocal {
 
+    /*
+    *   Method which is called to get the storeId linked to the userId.
+     */
     @Override
     public int getStoreIdByUserId(int userId) {
         Session session = null;
@@ -35,7 +37,10 @@ public class Utils implements UtilsLocal {
 
         return 0;
     }
-    
+
+    /*
+    *   Method which is called to translate the order status.
+     */
     @Override
     public String translateStatus(String key, String lang) {
 

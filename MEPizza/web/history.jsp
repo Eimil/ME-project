@@ -22,7 +22,7 @@
             </div>
          </div>
          <div id="meny">
-            <li><a href='ProductServlet'>Produkter</a></li> -
+            <li><a href='StoreServlet'>Produkter</a></li> -
             <li><a href='CheckoutServlet'>Kassa</a></li> -
             <li><a href='PurchaseHistoryServlet'>Historik</a></li>
          </div>
