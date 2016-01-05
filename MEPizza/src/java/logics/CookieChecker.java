@@ -23,7 +23,7 @@ public class CookieChecker implements CookieCheckerLocal {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("mePizzaAdmin")) {
+                if (cookie.getName().equals("mePizzaUser")) {
                     String userID = cookie.getValue();
                     cookie.setMaxAge(15 * 60);
                     response.addCookie(cookie);

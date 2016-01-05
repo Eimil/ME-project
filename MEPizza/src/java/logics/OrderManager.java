@@ -45,6 +45,7 @@ public class OrderManager implements OrderManagerLocal {
                 order.setNotes(orderValues[0]);
                 order.setStoreId(Integer.parseInt(orderValues[6]));
                 order.setPrice(Integer.parseInt(orderValues[7]));
+                order.setStatus("new");
                 session.save(order);
                 session.getTransaction().commit();
                 orderId = order.getId();

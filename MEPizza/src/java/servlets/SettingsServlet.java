@@ -58,10 +58,15 @@ public class SettingsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String changeButton = request.getParameter("changeButton");
         String userID = null;
-        List<Object> list = new ArrayList<>();
-        list = cookieChecker.checkIfCookieExists(request, response);
-        response = (HttpServletResponse) list.get(0);
-        userID = (String) list.get(1);
+        List<Object> list = cookieChecker.checkIfCookieExists(request, response);
+        if (list != null && !list.isEmpty()) {
+            if (list.get(0) != null) {
+                response = (HttpServletResponse) list.get(0);
+            }
+            if (list.get(1) != null) {
+                userID = (String) list.get(1);
+            }
+        }
         if (userID == null) {
             response.sendRedirect("login.jsp");
         } else {
