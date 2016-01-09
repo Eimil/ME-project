@@ -37,7 +37,6 @@
               ${reason}
             <br>
             <br>
-            <a href=forgotpassword.jsp> Glömt lösenord? </a>
          </div>
          <div id="fotter">
             <p id="nere">Utvecklad av Magnus Kanfjäll & Emil Ejder</p>

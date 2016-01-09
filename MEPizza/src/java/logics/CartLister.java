@@ -22,7 +22,7 @@ public class CartLister implements CartListerLocal {
     *   Method which is called to list items in the shopping cart.
      */
     @Override
-    public String[] cartContensAsHtmlRow(int userId) {
+    public String[] cartContentAsHtmlRow(int userId) {
 
         Session session = null;
         List<Cart> theCart = null;

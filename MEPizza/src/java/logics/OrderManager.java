@@ -25,9 +25,8 @@ import ws.BankingWS_Service;
 @Stateless
 public class OrderManager implements OrderManagerLocal {
 
-    @WebServiceRef(wsdlLocation = "http://localhost:8080/BankWebService/BankingWS?wsdl")
+    @WebServiceRef(wsdlLocation = "https://kanfjall.se:443/BankWebService/BankingWS?wsdl")
     private BankingWS_Service service;
-
     
     /*
     * Method used to create an order, calls web service to check account balance.
@@ -201,8 +200,6 @@ public class OrderManager implements OrderManagerLocal {
     }
 
     private boolean sendMails(java.util.List<java.lang.String> userInfo, java.lang.String orderInfo, java.lang.String orderNumber, java.lang.String restaurantEmail) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
         ws.BankingWS port = service.getBankingWSPort();
         return port.sendMails(userInfo, orderInfo, orderNumber, restaurantEmail);
     }

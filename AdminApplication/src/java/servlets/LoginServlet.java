@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
                 if (!result.equals("BAD")) {
                     Cookie meCookie = new Cookie("mePizzaAdmin", result);
                     meCookie.setMaxAge(15 * 60);
-                    //meCookie.setSecure(true); skickas endast med endast ssl / https
+                    meCookie.setSecure(true);
                     response.addCookie(meCookie);
                     response.sendRedirect("ProductServlet");
                 } else {

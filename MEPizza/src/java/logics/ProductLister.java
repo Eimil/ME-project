@@ -39,8 +39,7 @@ public class ProductLister implements ProductListerLocal {
             returner += "<form action=\"StoreServlet\" method=\"post\">\n"
                     + " \n"
                     + "  <input type=\"hidden\" name=\"id\" value=\""+pr.getId()+"\">";
-            returner += "<tr>";
-            
+            returner += "<tr>";     
             returner += "<td>" + pr.getName() + "</td>";
             returner += "<td>" + pr.getDescription() + "</td>";
             returner += "<td><img src=\"" + pr.getPicLink() + "\" height=\"42\" width=\"42\"></td>";

@@ -8,9 +8,18 @@ import hibernate.Order;
 import hibernate.Orderlist;
 import hibernate.Product;
 import hibernate.Restaurant;
+import hibernate.User;
 import java.util.List;
+import java.util.Properties;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import org.hibernate.Session;
 
 /**
@@ -156,10 +165,43 @@ public class OrderManager implements OrderManagerLocal {
             session.save(order);
             session.getTransaction().commit();
             session.close();
-
+            sendMail(order.getUserId(), utils.translateStatus(status, "swe"), order.getId());
         } catch (Exception ex) {
             System.out.println("Couldn't modify order " + ex);
         }
+    }
 
+    private void sendMail(int userId, String status, int orderNumber) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            User user = (User) session.createQuery("select user from User user where user.id = :id")
+                    .setParameter("id", userId)
+                    .uniqueResult();
+            session.getTransaction().commit();
+            session.close();
+            if (user.getEmail() != null) {
+                Properties props = System.getProperties();
+                props.put("mail.smtp.port", "587");
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                javax.mail.Session mailSession = javax.mail.Session.getDefaultInstance(props, null);
+                MimeMessage message = new MimeMessage(mailSession);
+                Multipart multiPart = new MimeMultipart("alternative");
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+                message.setSubject("Ändrad orderstatus!");
+                String content = "Din beställning med ordernummer " + orderNumber + " är nu ändrad till " + status + ".";
+                MimeBodyPart body = new MimeBodyPart();
+                body.setText(content, "utf-8");
+                multiPart.addBodyPart(body);
+                message.setContent(multiPart);
+                Transport transport = mailSession.getTransport("smtp");
+                transport.connect("smtp.gmail.com", "mepizzacontact@gmail.com", "TrialAndError13");
+                transport.sendMessage(message, message.getAllRecipients());
+                transport.close();
+            }
+        } catch (Exception ex) {
+            System.out.println("Couldn't send mail to user");
+        }
     }
 }

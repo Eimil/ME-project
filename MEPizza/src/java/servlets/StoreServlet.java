@@ -5,11 +5,9 @@ package servlets;
 *   Reads the inputed parametres and calls the responsible bean to act.
  */
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,7 +64,7 @@ public class StoreServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             String products = productLister.getProductsAsHtmlRows();
-            String[] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            String[] cartResult = cartLister.cartContentAsHtmlRow(Integer.parseInt(userID));
             request.setAttribute("products", products);
             request.setAttribute("cart", cartResult[0]);
             request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
@@ -91,14 +89,15 @@ public class StoreServlet extends HttpServlet {
                 userID = (String) list.get(1);
             }
         }
-        //Add to cart
-        int id = Integer.parseInt(request.getParameter("id"));
-        cartHandler.addToCart(id, Integer.parseInt(userID));
         if (userID == null) {
+            // redirect to login
             response.sendRedirect("login.jsp");
         } else {
+            //Add to cart
+            int id = Integer.parseInt(request.getParameter("id"));
+            cartHandler.addToCart(id, Integer.parseInt(userID));
             String products = productLister.getProductsAsHtmlRows();
-            String[] cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+            String[] cartResult = cartLister.cartContentAsHtmlRow(Integer.parseInt(userID));
             request.setAttribute("products", products);
             request.setAttribute("cart", cartResult[0]);
             request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");

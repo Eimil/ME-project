@@ -115,7 +115,7 @@ public class CheckoutServlet extends HttpServlet {
     }
 
     public HttpServletRequest loadPageContent(HttpServletRequest request, HttpServletResponse response, String userID) {
-        cartResult = cartLister.cartContensAsHtmlRow(Integer.parseInt(userID));
+        cartResult = cartLister.cartContentAsHtmlRow(Integer.parseInt(userID));
         String userInfo = cartLister.getUserInfo(Integer.parseInt(userID));
         int price = Integer.parseInt(cartResult[1]);
         String dropdown = cartHandler.resturantDropdownHtml();

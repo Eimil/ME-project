@@ -64,8 +64,6 @@ public class BankingWS {
     @WebMethod(operationName = "sendMails")
     public boolean sendMails(@WebParam(name = "userInfo") String[] userInfo, @WebParam(name = "orderInfo") String orderInfo, @WebParam(name = "orderNumber") String orderNumber, @WebParam(name = "restaurantEmail") String restaurantEmail) {
         try {
-            System.out.println("TRYING TO SEND MAIL : STORE EMAIL IS " + restaurantEmail);
-
             Properties props = System.getProperties();
             props.put("mail.smtp.port", "587");
             props.put("mail.smtp.auth", "true");
@@ -86,7 +84,7 @@ public class BankingWS {
             transport.connect("smtp.gmail.com", "mepizzacontact@gmail.com", "TrialAndError13");
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            //ss
+
             // Mail to restaurant
             session = Session.getDefaultInstance(props, null);
             message = new MimeMessage(session);
