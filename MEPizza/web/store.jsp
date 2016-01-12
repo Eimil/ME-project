@@ -27,7 +27,7 @@
             <li><a href='CheckoutServlet'>Kassa</a></li> -
             <li><a href='PurchaseHistoryServlet'>Historik</a></li>
          </div>
-         <div id="main_box">                 
+         <div id="main_box">                  ${error}
         <table rowspan="0" border="0" cellspacing="0">
             <thead>
                 <th>Produkt</th>

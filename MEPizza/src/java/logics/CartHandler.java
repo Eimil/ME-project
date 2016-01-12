@@ -23,9 +23,10 @@ public class CartHandler implements CartHandlerLocal {
     * Method used to add content to cart
      */
     @Override
-    public void addToCart(int productId, int userId) {
+    public boolean addToCart(int productId, int userId) {
         System.out.println("Produkt:" + productId + "User:" + userId);
         Session session = null;
+        boolean tmp;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -34,35 +35,41 @@ public class CartHandler implements CartHandlerLocal {
             cart.setUserId(userId);
             session.save(cart);
             session.getTransaction().commit();
+            tmp=true;
         } catch (Exception ex) {
+            tmp=false;
             System.out.println("Exception in adding product to cart : " + ex);
         }
         if (session != null) {
             session.clear();
             session.close();
         }
+         return tmp;
     }
 
     /*
     * Method used to remove content from cart
      */
     @Override
-    public void removeFromCart(int rowId, int userId) {
+    public boolean removeFromCart(int rowId, int userId) {
         Session session = null;
-
+        boolean tmp;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.createQuery("delete from Cart where id= :id AND userId= :userId").setParameter("id", rowId).setParameter("userId", userId).executeUpdate();
             session.getTransaction().commit();
+            tmp=true;
+            
         } catch (Exception ex) {
+            tmp=false;
             System.out.println("Exception in removing from cart : " + ex);
         }
         if (session != null) {
             session.clear();
             session.close();
         }
-
+        return tmp;
     }
 
     /*

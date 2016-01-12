@@ -13,9 +13,9 @@ import javax.ejb.Local;
 @Local
 public interface CartHandlerLocal {
 
-    public void addToCart(int productId, int userId);
+    public boolean addToCart(int productId, int userId);
 
-    public void removeFromCart(int rowId, int userId);
+    public boolean removeFromCart(int rowId, int userId);
 
     public String resturantDropdownHtml();
     

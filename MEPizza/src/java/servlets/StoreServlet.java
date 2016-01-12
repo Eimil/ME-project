@@ -78,6 +78,7 @@ public class StoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        boolean noFaults=true;
         request.setCharacterEncoding("UTF-8");
         String userID = null;
         List<Object> list = cookieChecker.checkIfCookieExists(request, response);
@@ -94,14 +95,18 @@ public class StoreServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else //Add to cart
         {
+            
+            
             if (request.getParameter("eraseFromCart") != null && !request.getParameter("eraseFromCart").isEmpty()) {
-
                 int id = Integer.parseInt(request.getParameter("id"));
-                cartHandler.removeFromCart(id, Integer.parseInt(userID));
+                noFaults=cartHandler.removeFromCart(id, Integer.parseInt(userID));
             } else {
                 int id = Integer.parseInt(request.getParameter("id"));
-                cartHandler.addToCart(id, Integer.parseInt(userID));
+                noFaults=cartHandler.addToCart(id, Integer.parseInt(userID));
             }
+        }
+        if(!noFaults){
+            request.setAttribute("error", "Något gick fel");
         }
         String products = productLister.getProductsAsHtmlRows();
         String[] cartResult = cartLister.cartContentAsHtmlRow(Integer.parseInt(userID), true);
