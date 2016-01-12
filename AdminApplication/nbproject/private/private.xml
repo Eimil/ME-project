@@ -3,8 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="ME-project">
-            <file>file:/C:/Users/Emil/Documents/GitHub/ME-project/AdminApplication/src/java/logics/OrderManager.java</file>
-            <file>file:/C:/Users/Emil/Documents/GitHub/ME-project/AdminApplication/web/login.jsp</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/AdminApplication/src/java/servlets/ProductServlet.java</file>
+            <file>file:/C:/Users/eimil_000/Documents/GitHub/ME-project/AdminApplication/src/java/servlets/OrderServlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -19,7 +19,7 @@
             <div id="box">
                 <div id="Logga">
                     <div id="infobox">
-                        <h3>Utloggad</h3>
+                         ${infobox}
                     </div>
                 </div>
             </div>

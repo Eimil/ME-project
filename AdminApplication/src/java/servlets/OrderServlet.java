@@ -5,7 +5,6 @@ package servlets;
 *   Reads the inputed parametres and calls the responsible bean to act.
  */
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -62,6 +61,7 @@ public class OrderServlet extends HttpServlet {
         } else {
             request.setCharacterEncoding("UTF-8");
             int storeId = utils.getStoreIdByUserId(Integer.parseInt(userID));
+            request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a></h3>");
             request.setAttribute("rows", orderManager.getPurchasesAsHtmlRows(storeId));
             request.getRequestDispatcher("orders.jsp").forward(request, response);
         }
