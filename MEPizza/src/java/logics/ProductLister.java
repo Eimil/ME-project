@@ -27,7 +27,7 @@ public class ProductLister implements ProductListerLocal {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            products = (List<Product>) session.createQuery("from Product").list();
+            products = (List<Product>) session.createQuery("from Product where active = 1").list();
             session.getTransaction().commit();
             session.close(); // kanske skall kommenteras bort
         } catch (Exception ex) {

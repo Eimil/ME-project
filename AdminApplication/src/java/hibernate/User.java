@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2016-jan-04 23:08:56 by Hibernate Tools 4.3.1
+// Generated 2016-jan-12 19:48:36 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name="user"
     ,catalog="mepizza"
-    , uniqueConstraints = {@UniqueConstraint(columnNames="userName"), @UniqueConstraint(columnNames="email")} 
+    , uniqueConstraints = {@UniqueConstraint(columnNames="email"), @UniqueConstraint(columnNames="userName")} 
 )
 public class User  implements java.io.Serializable {
 

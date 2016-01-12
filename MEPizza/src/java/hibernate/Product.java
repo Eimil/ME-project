@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2016-jan-04 23:01:22 by Hibernate Tools 4.3.1
+// Generated 2016-jan-12 19:42:42 by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -24,15 +24,17 @@ public class Product  implements java.io.Serializable {
      private String description;
      private double price;
      private String picLink;
+     private boolean active;
 
     public Product() {
     }
 
-    public Product(String name, String description, double price, String picLink) {
+    public Product(String name, String description, double price, String picLink, boolean active) {
        this.name = name;
        this.description = description;
        this.price = price;
        this.picLink = picLink;
+       this.active = active;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -85,6 +87,16 @@ public class Product  implements java.io.Serializable {
     
     public void setPicLink(String picLink) {
         this.picLink = picLink;
+    }
+
+    
+    @Column(name="active", nullable=false)
+    public boolean isActive() {
+        return this.active;
+    }
+    
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 

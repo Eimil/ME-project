@@ -28,7 +28,6 @@
                       <li><a href='OrderServlet'>Historik</a></li>
             </div>
             <div id="main_box">
-                <form method="post" action="ProductServlet" >
                     <table rowspan="0" border="0" cellspacing="0">
                         <thead>
                         <th>Produkt</th>
@@ -39,6 +38,7 @@
                         </thead>
                         ${products}  
                     </table>
+                    <form method="post" action="ProductServlet" >
                     <input type="text" name="name" placeholder='Produktnamn' value="" required/>
                     <br>
                     <input type="text" name="description"  placeholder='Beskrivning' value="" required />

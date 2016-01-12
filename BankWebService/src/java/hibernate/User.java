@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2016-jan-01 16:14:46 by Hibernate Tools 4.3.1
+// Generated 2016-jan-12 20:02:03 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name="user"
     ,catalog="mepizza"
-    , uniqueConstraints = {@UniqueConstraint(columnNames="userName"), @UniqueConstraint(columnNames="email")} 
+    , uniqueConstraints = {@UniqueConstraint(columnNames="email"), @UniqueConstraint(columnNames="userName")} 
 )
 public class User  implements java.io.Serializable {
 
@@ -35,11 +35,25 @@ public class User  implements java.io.Serializable {
      private boolean active;
      private String phone;
      private Date created;
+     private Integer storeId;
 
     public User() {
     }
 
+	
     public User(String userName, String fullName, String address, String zipCode, String password, String role, String email, boolean active, String phone, Date created) {
+        this.userName = userName;
+        this.fullName = fullName;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.password = password;
+        this.role = role;
+        this.email = email;
+        this.active = active;
+        this.phone = phone;
+        this.created = created;
+    }
+    public User(String userName, String fullName, String address, String zipCode, String password, String role, String email, boolean active, String phone, Date created, Integer storeId) {
        this.userName = userName;
        this.fullName = fullName;
        this.address = address;
@@ -50,6 +64,7 @@ public class User  implements java.io.Serializable {
        this.active = active;
        this.phone = phone;
        this.created = created;
+       this.storeId = storeId;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -162,6 +177,16 @@ public class User  implements java.io.Serializable {
     
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    
+    @Column(name="storeId")
+    public Integer getStoreId() {
+        return this.storeId;
+    }
+    
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
 

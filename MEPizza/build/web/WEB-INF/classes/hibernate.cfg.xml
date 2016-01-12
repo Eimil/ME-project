@@ -9,11 +9,11 @@
     <property name="hibernate.connection.password">Logon123</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <mapping resource="hibernate/Card.hbm.xml"/>
-    <mapping resource="hibernate/Product.hbm.xml"/>
     <mapping resource="hibernate/Restaurant.hbm.xml"/>
     <mapping resource="hibernate/User.hbm.xml"/>
+    <mapping resource="hibernate/Card.hbm.xml"/>
     <mapping resource="hibernate/Order.hbm.xml"/>
+    <mapping resource="hibernate/Product.hbm.xml"/>
     <mapping resource="hibernate/Orderlist.hbm.xml"/>
     <mapping resource="hibernate/Cart.hbm.xml"/>
   </session-factory>

@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2016-jan-04 23:08:56 by Hibernate Tools 4.3.1
+// Generated 2016-jan-12 19:48:36 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -105,7 +105,7 @@ public class Order  implements java.io.Serializable {
     }
 
     
-    @Column(name="status", nullable=false, length=7)
+    @Column(name="status", nullable=false, length=8)
     public String getStatus() {
         return this.status;
     }

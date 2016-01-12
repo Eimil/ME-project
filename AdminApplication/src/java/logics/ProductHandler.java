@@ -30,6 +30,7 @@ public class ProductHandler implements ProductHandlerLocal {
             product.setDescription(productInfo[1]);
             product.setPicLink(productInfo[2]);
             product.setPrice(Double.parseDouble(productInfo[3]));
+            product.setActive(true);
             session.save(product);
             session.getTransaction().commit();
             success = true;
@@ -44,7 +45,7 @@ public class ProductHandler implements ProductHandlerLocal {
     }
 
     /*
-    *   Method which is called remove a product from the menu.
+    *   Method which is called "remove" a product from the menu.
      */
     @Override
     public boolean removeProduct(int productId) {
@@ -53,7 +54,11 @@ public class ProductHandler implements ProductHandlerLocal {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            session.createQuery("delete from Product where id= :id").setParameter("id", productId).executeUpdate();
+            Product product = (Product) session.createQuery("select product from Product product where product.id = :id").setParameter("id", productId).uniqueResult();
+            session.getTransaction().commit();
+            session.beginTransaction();
+            product.setActive(false);
+            session.save(product);
             session.getTransaction().commit();
             success = true;
         } catch (Exception ex) {

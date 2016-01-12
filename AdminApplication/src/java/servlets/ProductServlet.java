@@ -118,7 +118,7 @@ public class ProductServlet extends HttpServlet {
                         request.setAttribute("error", "Kunde inte ta bort produkt");
                     }
                     String products = productLister.listAvaliableProducts();
-                    request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'>Logga ut</a>/<a href='SettingsServlet'>Kontouppgifter</a></h3>");
+                    request.setAttribute("infobox", "<h3>Inloggad som ID:" + userID + "</h3><h3><a href='LogoutServlet'></h3>");
                     request.setAttribute("products", products);
                     request.getRequestDispatcher("products.jsp").forward(request, response);
                 }
