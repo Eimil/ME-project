@@ -15,7 +15,7 @@ public interface CartHandlerLocal {
 
     public void addToCart(int productId, int userId);
 
-    public void removeFromCart(int productId, int userId);
+    public void removeFromCart(int rowId, int userId);
 
     public String resturantDropdownHtml();
     

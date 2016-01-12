@@ -42,7 +42,8 @@
             <thead>
                 <th>Produkt</th>
                 <th>Antal</th>
-                <th>Pris</th>           
+                <th>Pris</th>      
+                <th>Åtgärd</th>
             </thead>
             ${cart}   
         </table>

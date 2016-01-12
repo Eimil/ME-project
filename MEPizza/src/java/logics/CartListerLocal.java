@@ -15,7 +15,7 @@ public interface CartListerLocal {
 
  
 
-    public String [] cartContentAsHtmlRow(int userId);
+    public String [] cartContentAsHtmlRow(int userId,boolean showErase);
 
     String getUserInfo(int userId);
     

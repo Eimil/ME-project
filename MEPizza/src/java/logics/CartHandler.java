@@ -4,9 +4,8 @@ package logics;
 * The Stateless Session Bean which performs the logics behind adding items to cart.
 * Is also used to list the avaliable restaurants.
  */
-
-import hibernate.Cart;
 import hibernate.HibernateUtil;
+import hibernate.Cart;
 import hibernate.Restaurant;
 import java.util.List;
 
@@ -48,8 +47,21 @@ public class CartHandler implements CartHandlerLocal {
     * Method used to remove content from cart
      */
     @Override
-    public void removeFromCart(int productId, int userId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void removeFromCart(int rowId, int userId) {
+        Session session = null;
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.createQuery("delete from Cart where id= :id AND userId= :userId").setParameter("id", rowId).setParameter("userId", userId).executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println("Exception in removing from cart : " + ex);
+        }
+        if (session != null) {
+            session.clear();
+            session.close();
+        }
 
     }
 

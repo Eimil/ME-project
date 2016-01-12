@@ -22,7 +22,7 @@ public class CartLister implements CartListerLocal {
     *   Method which is called to list items in the shopping cart.
      */
     @Override
-    public String[] cartContentAsHtmlRow(int userId) {
+    public String[] cartContentAsHtmlRow(int userId,boolean showErase) {
 
         Session session = null;
         List<Cart> theCart = null;
@@ -35,20 +35,30 @@ public class CartLister implements CartListerLocal {
             session.getTransaction().commit();
 
             for (int i = 0; i < theCart.size(); i++) {
-                Cart pr = theCart.get(i);
+                Cart row = theCart.get(i);
                 session.beginTransaction();
                 Product Product = (Product) session.createQuery("select product from Product product where product.id = :id")
-                        .setParameter("id", pr.getProductId())
+                        .setParameter("id", row.getProductId())
                         .uniqueResult();
                 session.getTransaction().commit();
+                returner += "<form action=\"StoreServlet\" method=\"post\">\n";
                 returner += "<tr>";
+                returner += "<input type='hidden' value='"+row.getId()+"' name='id'>";
                 returner += "<td>" + Product.getName() + "</td>";
                 returner += "<td>1st</td>";
                 returner += "<td>" + Product.getPrice() + "kr</td>";
+                
+                if(showErase){
+                     returner += "<td><input type='submit' value='Ta bort' name='eraseFromCart'></td>";
+                }
+               
+        
                 returner += "</tr>";
+                returner += "</form>";
+                
                 total += Product.getPrice();
             }
-            returner += "<tr class='total'><td colspan='2'>Total:</td><td>" + total + "kr</td><tr>";
+            returner += "<tr class='total'><td colspan='2'>Total:</td><td colspan='2'>" + total + "kr</td><tr>";
             session.close();
         } catch (Exception ex) {
             System.out.println("Exception in cartContensAsHtmlRow : " + ex);
